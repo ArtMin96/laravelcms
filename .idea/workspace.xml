@@ -1,7 +1,122 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="80223fc0-0331-46f4-9832-bc087dad17d2" name="Default Changelist" comment="" />
+    <list default="true" id="80223fc0-0331-46f4-9832-bc087dad17d2" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/webServers.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Category.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Http/Controllers/CategoryController.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Http/Controllers/ProductsController.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Products.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/ProductsAttributes.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/database/migrations/2019_12_21_124800_create_categories_table.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/database/migrations/2019_12_22_124639_create_products_table.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/database/migrations/2019_12_22_182857_create_products_attributes_table.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/backend/assets/extra-libs/DataTables/buttons.bootstrap4.min.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/backend/assets/extra-libs/DataTables/buttons.bootstrap4.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/backend/assets/extra-libs/DataTables/buttons.colVis.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/backend/assets/extra-libs/DataTables/buttons.html5.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/backend/assets/extra-libs/DataTables/buttons.print.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/backend/assets/extra-libs/DataTables/dataTables.bootstrap4.min.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/backend/assets/extra-libs/DataTables/dataTables.bootstrap4.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/backend/assets/extra-libs/DataTables/dataTables.buttons.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/backend/assets/extra-libs/DataTables/jszip.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/backend/assets/extra-libs/DataTables/pdfmake.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/backend/assets/extra-libs/DataTables/vfs_fonts.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/backend/css/custom.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/backend/css/sweetalert.min.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/backend/images/categories/large/11999.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/backend/images/categories/large/27801.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/backend/images/categories/large/37849.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/backend/images/categories/large/46449.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/backend/images/categories/large/47261.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/backend/images/categories/large/56351.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/backend/images/categories/large/633.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/backend/images/categories/large/92561.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/backend/images/categories/medium/11999.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/backend/images/categories/medium/27801.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/backend/images/categories/medium/37849.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/backend/images/categories/medium/46449.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/backend/images/categories/medium/47261.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/backend/images/categories/medium/56351.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/backend/images/categories/medium/633.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/backend/images/categories/medium/92561.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/backend/images/categories/small/11999.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/backend/images/categories/small/27801.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/backend/images/categories/small/37849.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/backend/images/categories/small/46449.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/backend/images/categories/small/47261.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/backend/images/categories/small/56351.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/backend/images/categories/small/633.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/backend/images/categories/small/92561.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/backend/images/products/large/20206.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/backend/images/products/large/34394.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/backend/images/products/large/35483.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/backend/images/products/large/3808.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/backend/images/products/large/51099.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/backend/images/products/large/61157.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/backend/images/products/large/84169.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/backend/images/products/large/96016.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/backend/images/products/medium/20206.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/backend/images/products/medium/34394.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/backend/images/products/medium/35483.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/backend/images/products/medium/3808.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/backend/images/products/medium/51099.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/backend/images/products/medium/61157.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/backend/images/products/medium/84169.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/backend/images/products/medium/96016.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/backend/images/products/small/20206.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/backend/images/products/small/34394.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/backend/images/products/small/35483.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/backend/images/products/small/3808.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/backend/images/products/small/51099.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/backend/images/products/small/61157.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/backend/images/products/small/84169.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/backend/images/products/small/96016.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/backend/js/category.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/backend/js/product.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/backend/js/sweetalert.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/admin/categories/add_category.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/admin/categories/edit_category.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/admin/categories/view_categories.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/admin/products/add_attributes.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/admin/products/add_product.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/admin/products/edit_product.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/admin/products/view_products.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/deployment.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/deployment.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/laravelcms.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/laravelcms.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/app.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/bootstrap.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/bootstrap.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/components/ExampleComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/ExampleComponent.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/lang/en/auth.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/lang/en/auth.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/lang/en/pagination.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/lang/en/pagination.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/lang/en/passwords.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/lang/en/passwords.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/lang/en/validation.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/lang/en/validation.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/sass/_variables.scss" beforeDir="false" afterPath="$PROJECT_DIR$/resources/sass/_variables.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/sass/app.scss" beforeDir="false" afterPath="$PROJECT_DIR$/resources/sass/app.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/admin/admin_login.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/admin_login.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/admin/dashboard.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/dashboard.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/admin/settings.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/settings.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/auth/login.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/auth/login.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/auth/passwords/confirm.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/auth/passwords/confirm.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/auth/passwords/email.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/auth/passwords/email.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/auth/passwords/reset.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/auth/passwords/reset.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/auth/register.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/auth/register.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/auth/verify.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/auth/verify.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/home.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/home.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/layouts/adminLayout/admin_design.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layouts/adminLayout/admin_design.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/layouts/adminLayout/admin_footer.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layouts/adminLayout/admin_footer.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/layouts/adminLayout/admin_header.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layouts/adminLayout/admin_header.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/layouts/adminLayout/admin_sidebar.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layouts/adminLayout/admin_sidebar.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/layouts/app.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layouts/app.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/welcome.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/welcome.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -19,6 +134,16 @@
       <list>
         <option value="JavaScript File" />
       </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="IgnoredFileRootStore">
+    <option name="generatedRoots">
+      <set>
+        <option value="D:\OSPanel\domains\laravelcms\.idea" />
+      </set>
     </option>
   </component>
   <component name="PhpWorkspaceProjectConfiguration">
@@ -110,11 +235,26 @@
       <path value="$PROJECT_DIR$/vendor/symfony/event-dispatcher" />
       <path value="$PROJECT_DIR$/vendor/symfony/polyfill-intl-idn" />
       <path value="$PROJECT_DIR$/vendor/laravel/ui" />
+      <path value="$PROJECT_DIR$/vendor/psr/http-message" />
+      <path value="$PROJECT_DIR$/vendor/guzzlehttp/psr7" />
+      <path value="$PROJECT_DIR$/vendor/intervention/image" />
+      <path value="$PROJECT_DIR$/vendor/ralouphie/getallheaders" />
     </include_path>
   </component>
   <component name="ProjectId" id="1VDFgwkKkNjcp270Dob26V3SJm8" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
+    <property name="ASKED_SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="true" />
+    <property name="WebServerToolWindowPanel.toolwindow.highlight.mappings" value="true" />
+    <property name="WebServerToolWindowPanel.toolwindow.highlight.symlinks" value="true" />
+    <property name="WebServerToolWindowPanel.toolwindow.show.date" value="false" />
+    <property name="WebServerToolWindowPanel.toolwindow.show.permissions" value="false" />
+    <property name="WebServerToolWindowPanel.toolwindow.show.size" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_package_manager_path" value="npm" />
   </component>
@@ -147,19 +287,37 @@
       <option name="presentableId" value="Default" />
       <updated>1576779873485</updated>
       <workItem from="1576779874955" duration="15106000" />
-      <workItem from="1576873553212" duration="5745000" />
+      <workItem from="1576873553212" duration="9836000" />
+      <workItem from="1576931811028" duration="45197000" />
+      <workItem from="1577037043762" duration="11917000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
   </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="COLUMN_ORDER" />
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+  </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="php">
           <url>file://$PROJECT_DIR$/resources/views/admin/settings.blade.php</url>
-          <line>64</line>
+          <line>68</line>
           <option name="timeStamp" value="1" />
         </line-breakpoint>
       </breakpoints>

@@ -1,0 +1,15 @@
+.details-image img {
+    width: 200px;
+    margin: 0 auto;
+}
+
+.img-wrap {
+    position: relative;
+}
+.img-wrap .close {
+    position: absolute;
+    font-size: 30px;
+    top: .5rem;
+    right: .5rem;
+    z-index: 100;
+}
