@@ -2,156 +2,26 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="80223fc0-0331-46f4-9832-bc087dad17d2" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/app/Http/Controllers/IndexController.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/ProductFiles.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/database/migrations/2019_12_26_195348_create_product_files_table.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/database/migrations/2019_12_27_211459_create_cart_table.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/backend/images/categories/large/46443.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/backend/images/categories/large/65734.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/backend/images/categories/large/73340.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/backend/images/categories/large/97691.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/backend/images/categories/large/98377.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/backend/images/categories/large/99543.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/backend/images/categories/medium/46443.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/backend/images/categories/medium/65734.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/backend/images/categories/medium/73340.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/backend/images/categories/medium/97691.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/backend/images/categories/medium/98377.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/backend/images/categories/medium/99543.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/backend/images/categories/small/46443.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/backend/images/categories/small/65734.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/backend/images/categories/small/73340.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/backend/images/categories/small/97691.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/backend/images/categories/small/98377.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/backend/images/categories/small/99543.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/backend/images/products/large/13770.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/backend/images/products/large/14731.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/backend/images/products/large/15466.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/backend/images/products/large/15617.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/backend/images/products/large/17898.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/backend/images/products/large/23580.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/backend/images/products/large/28864.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/backend/images/products/large/33368.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/backend/images/products/large/33406.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/backend/images/products/large/33815.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/backend/images/products/large/34116.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/backend/images/products/large/35648.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/backend/images/products/large/37574.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/backend/images/products/large/44715.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/backend/images/products/large/45751.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/backend/images/products/large/48071.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/backend/images/products/large/48119.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/backend/images/products/large/5408.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/backend/images/products/large/60365.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/backend/images/products/large/62087.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/backend/images/products/large/62997.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/backend/images/products/large/63675.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/backend/images/products/large/65766.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/backend/images/products/large/68402.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/backend/images/products/large/69285.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/backend/images/products/large/69871.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/backend/images/products/large/75063.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/backend/images/products/large/79160.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/backend/images/products/large/80904.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/backend/images/products/large/86324.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/backend/images/products/large/91693.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/backend/images/products/large/97632.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/backend/images/products/medium/13770.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/backend/images/products/medium/14731.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/backend/images/products/medium/15466.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/backend/images/products/medium/15617.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/backend/images/products/medium/17898.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/backend/images/products/medium/23580.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/backend/images/products/medium/28864.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/backend/images/products/medium/33368.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/backend/images/products/medium/33406.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/backend/images/products/medium/33815.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/backend/images/products/medium/34116.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/backend/images/products/medium/35648.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/backend/images/products/medium/37574.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/backend/images/products/medium/44715.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/backend/images/products/medium/45751.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/backend/images/products/medium/48071.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/backend/images/products/medium/48119.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/backend/images/products/medium/5408.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/backend/images/products/medium/60365.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/backend/images/products/medium/62087.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/backend/images/products/medium/62997.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/backend/images/products/medium/63675.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/backend/images/products/medium/65766.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/backend/images/products/medium/68402.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/backend/images/products/medium/69285.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/backend/images/products/medium/69871.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/backend/images/products/medium/75063.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/backend/images/products/medium/79160.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/backend/images/products/medium/80904.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/backend/images/products/medium/86324.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/backend/images/products/medium/91693.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/backend/images/products/medium/97632.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/backend/images/products/small/13770.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/backend/images/products/small/14731.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/backend/images/products/small/15466.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/backend/images/products/small/15617.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/backend/images/products/small/17898.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/backend/images/products/small/23580.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/backend/images/products/small/28864.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/backend/images/products/small/33368.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/backend/images/products/small/33406.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/backend/images/products/small/33815.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/backend/images/products/small/34116.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/backend/images/products/small/35648.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/backend/images/products/small/37574.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/backend/images/products/small/44715.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/backend/images/products/small/45751.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/backend/images/products/small/48071.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/backend/images/products/small/48119.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/backend/images/products/small/5408.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/backend/images/products/small/60365.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/backend/images/products/small/62087.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/backend/images/products/small/62997.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/backend/images/products/small/63675.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/backend/images/products/small/65766.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/backend/images/products/small/68402.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/backend/images/products/small/69285.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/backend/images/products/small/69871.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/backend/images/products/small/75063.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/backend/images/products/small/79160.webp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/backend/images/products/small/80904.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/backend/images/products/small/86324.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/backend/images/products/small/91693.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/backend/images/products/small/97632.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/frontend/css/theme.min.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/frontend/css/vendor.min.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/frontend/fonts/03.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/frontend/fonts/cartzilla-icons.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/frontend/fonts/cartzilla-icons.ttf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/frontend/fonts/cartzilla-icons.woff" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/frontend/images/empty-content/empty-product-image.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/frontend/images/flags/de.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/frontend/images/flags/en.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/frontend/images/flags/fr.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/frontend/images/flags/it.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/frontend/images/pages/404.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/frontend/js/laravelCMS.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/frontend/js/theme.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/frontend/js/vendor.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/index.blade.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/layouts/frontLayout/front_design.blade.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/layouts/frontLayout/front_footer.blade.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/layouts/frontLayout/front_header.blade.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/products/detail.blade.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/products/listing.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/backend/images/products/large/11262.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/backend/images/products/large/41484.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/backend/images/products/large/48104.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/backend/images/products/large/85102.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/backend/images/products/large/88777.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/backend/images/products/medium/11262.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/backend/images/products/medium/41484.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/backend/images/products/medium/48104.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/backend/images/products/medium/85102.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/backend/images/products/medium/88777.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/backend/images/products/small/11262.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/backend/images/products/small/41484.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/backend/images/products/small/48104.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/backend/images/products/small/85102.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/backend/images/products/small/88777.jpg" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Category.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Category.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Controller.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Controller.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/ProductsController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/ProductsController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/app.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/app.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/database/migrations/2019_12_22_124639_create_products_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2019_12_22_124639_create_products_table.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/backend/js/product.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/backend/js/product.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/admin/products/add_attributes.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/products/add_attributes.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/admin/products/add_product.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/products/add_product.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/admin/products/edit_product.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/products/edit_product.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2019_12_22_182857_create_products_attributes_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2019_12_22_182857_create_products_attributes_table.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2019_12_26_195348_create_product_files_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2019_12_26_195348_create_product_files_table.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2019_12_27_211459_create_cart_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2019_12_27_211459_create_cart_table.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -340,7 +210,7 @@
       <workItem from="1577402469080" duration="3696000" />
       <workItem from="1577458356403" duration="1719000" />
       <workItem from="1577474090644" duration="668000" />
-      <workItem from="1577476446579" duration="3862000" />
+      <workItem from="1577476446579" duration="5015000" />
     </task>
     <servers />
   </component>

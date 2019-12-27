@@ -16,7 +16,7 @@ class CreateProductFilesTable extends Migration
         Schema::create('product_files', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('product_id');
-            $table->foreign('product_id')->references('id')->on('products');
+            $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
             $table->string('more_photo');
             $table->timestamps();
         });
