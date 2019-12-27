@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\ProductFiles;
 use App\ProductsAttributes;
 use Auth;
+use Illuminate\Support\Facades\DB;
 use Session;
 use Image;
 use Validator;
@@ -28,10 +30,9 @@ class ProductsController extends Controller
 
             $validate = Validator::make($data, [
                 'sort' => 'required|numeric',
-                'category_id' => 'required',
                 'name' => 'required',
                 'code'  => 'required',
-                'image' => 'image|mimes:jpeg,,jpg,png,gif,svg,webp,jfif:4086'
+                'image' => 'image|mimes:jpeg,,jpg,png,gif,svg,webp,jfif:4086',
             ]);
 
             if($validate->passes()) {
@@ -44,14 +45,16 @@ class ProductsController extends Controller
 
                 $product = new Products;
                 $product->category_id = $data['category_id'];
-                $product->sort = $data['sort'];
-                $product->name = $data['name'];
-                $product->code = $data['code'];
+                $product->sort        = $data['sort'];
+                $product->name        = $data['name'];
+                $product->code        = $data['code'];
                 $product->description = $data['description'];
-                $product->price = $data['price'];
-                $product->list_price = $data['list_price'];
-                $product->status = $status;
+                $product->care        = $data['care'];
+                $product->price       = $data['price'];
+                $product->list_price  = $data['list_price'];
+                $product->status      = $status;
 
+                // Main Image
                 if($request->hasFile('image')) {
                     $image_tmp = $request->file('image');
                     if($image_tmp->isValid()) {
@@ -70,16 +73,44 @@ class ProductsController extends Controller
                         $product->image = $fileName;
                     }
                 }
-                if($product->save()) {
-                    return redirect('/admin/view-products')->with('flash_message_success', 'The '.$product->name.' Has been created');
+
+                $product->save();
+
+                // More photos
+                if($request->hasFile('more_photo')) {
+                    $morePhotos = $request->file('more_photo');
+
+                    foreach ($morePhotos as $files) {
+
+                        // Upload images after resize
+                        $image = new ProductFiles;
+                        $extensions = $files->getClientOriginalExtension();
+                        $filesName = rand(111, 99999).'.'.$extensions;
+
+                        // Add images to specific paths
+                        $largeImagesPath = 'backend/images/products/large/'.$filesName;
+                        $mediumImagesPath = 'backend/images/products/medium/'.$filesName;
+                        $smallImagesPath = 'backend/images/products/small/'.$filesName;
+
+                        // Resize images
+                        Image::make($files)->save($largeImagesPath);
+                        Image::make($files)->resize(600, 600)->save($mediumImagesPath);
+                        Image::make($files)->resize(300, 300)->save($smallImagesPath);
+
+                        $image->more_photo = $filesName;
+                        $image->product_id = $product->id;
+                        $image->save();
+                    }
                 }
+
+                return redirect('/admin/view-products')->with('flash_message_success', 'The '.$product->name.' Has been created');
             } else {
                 return back()->with('flash_message_error', $validate->errors()->all());
             }
         }
 
         $categories = Category::where(['parent_id' => 0])->get();
-        $categoriesDropdown = '<option selected disabled>Select</option>';
+        $categoriesDropdown = '<option value="" selected disabled>Select</option>';
         foreach ($categories as $category) {
             $categoriesDropdown .= '<option value="'.$category->id.'">'.$category->name.'</option>';
             $subCategories = Category::where(['parent_id' => $category->id])->get();
@@ -101,10 +132,9 @@ class ProductsController extends Controller
 
             $validate = Validator::make($data, [
                 'sort' => 'required|numeric',
-                'category_id' => 'required',
                 'name' => 'required',
                 'code'  => 'required',
-                'image' => 'image|mimes:jpeg,,jpg,png,gif,svg,webp,jfif:4086'
+                'image' => 'image|mimes:jpeg,,jpg,png,gif,svg,webp,jfif:4086',
             ]);
 
             if($validate->passes()) {
@@ -139,11 +169,39 @@ class ProductsController extends Controller
                     'name'        => $data['name'],
                     'code'        => $data['code'],
                     'description' => $data['description'],
+                    'care'        => $data['care'],
                     'price'       => $data['price'],
                     'list_price'  => $data['list_price'],
                     'image'       => $fileName,
                     'status'      => $status
                 ]);
+
+                // More photos
+                if($request->hasFile('more_photo')) {
+                    $morePhotos = $request->file('more_photo');
+
+                    foreach ($morePhotos as $files) {
+
+                        // Upload images after resize
+                        $image = new ProductFiles;
+                        $extensions = $files->getClientOriginalExtension();
+                        $filesName = rand(111, 99999).'.'.$extensions;
+
+                        // Add images to specific paths
+                        $largeImagesPath = 'backend/images/products/large/'.$filesName;
+                        $mediumImagesPath = 'backend/images/products/medium/'.$filesName;
+                        $smallImagesPath = 'backend/images/products/small/'.$filesName;
+
+                        // Resize images
+                        Image::make($files)->save($largeImagesPath);
+                        Image::make($files)->resize(600, 600)->save($mediumImagesPath);
+                        Image::make($files)->resize(300, 300)->save($smallImagesPath);
+
+                        $image->more_photo = $filesName;
+                        $image->product_id = $data['product_id'];
+                        $image->save();
+                    }
+                }
 
                 return redirect()->back()->with('flash_message_success', 'The '.$data['name'].' has been updated!');
             } else {
@@ -153,8 +211,9 @@ class ProductsController extends Controller
 
         $productDetails = Products::where(['id' => $id])->first();
 
+        // Get Categories and Sub Categories
         $categories = Category::where(['parent_id' => 0])->get();
-        $categoriesDropdown = '<option selected disabled>Select</option>';
+        $categoriesDropdown = '<option value="" selected disabled>Select</option>';
         foreach ($categories as $category) {
             if($category->id == $productDetails->category_id) {
                 $selected = 'selected';
@@ -173,7 +232,10 @@ class ProductsController extends Controller
             }
         }
 
-        return view('admin.products.edit_product')->with(compact('productDetails', 'categoriesDropdown'));
+        // Get More Photos
+        $morePhotos = ProductFiles::where(['product_id' => $id])->get();
+
+        return view('admin.products.edit_product')->with(compact('productDetails', 'categoriesDropdown', 'morePhotos'));
     }
 
     /**
@@ -211,6 +273,39 @@ class ProductsController extends Controller
 
     /**
      * @param null $id
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function deleteMorePhotos($id = null) {
+
+        // Get product image name
+        $productImage = ProductFiles::where(['id' => $id])->first();
+
+        // Get product image path
+        $largeImagePath = 'backend/images/products/large/';
+        $mediumImagePath = 'backend/images/products/medium/';
+        $smallImagePath = 'backend/images/products/small/';
+
+        // Delete Large image if not exists in folder
+        if(file_exists($largeImagePath.$productImage->more_photo)) {
+            unlink($largeImagePath.$productImage->more_photo);
+        }
+
+        // Delete Medium image if not exists in folder
+        if(file_exists($mediumImagePath.$productImage->more_photo)) {
+            unlink($mediumImagePath.$productImage->more_photo);
+        }
+
+        // Delete Small image if not exists in folder
+        if(file_exists($smallImagePath.$productImage->more_photo)) {
+            unlink($smallImagePath.$productImage->more_photo);
+        }
+
+        ProductFiles::where(['id' => $id])->delete();
+        return response()->json(['flash_message_success' => 'Image has been deleted successfully!']);
+    }
+
+    /**
+     * @param null $id
      * @return \Illuminate\Http\RedirectResponse
      */
     public function deleteProduct($id = null) {
@@ -222,11 +317,16 @@ class ProductsController extends Controller
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function viewProducts() {
-        $products = Products::get();
+        $products = Products::orderBy('id', 'DESC')->get();
         $products = json_decode(json_encode($products));
         foreach ($products as $key => $product) {
             $categoryName = Category::where(['id' => $product->category_id])->first();
-            $products[$key]->category_name = $categoryName->name;
+
+            if(!empty($categoryName)) {
+                $products[$key]->category_name = $categoryName->name;
+            } else {
+                return redirect()->back()->with('flash_message_error', 'Categories attached to products may not exist. Please check the categories!');
+            }
         }
         return view('admin.products.view_products')->with(compact('products'));
     }
@@ -240,9 +340,23 @@ class ProductsController extends Controller
         $productDetails = Products::with('attributes')->where(['id' => $id])->first();
         if($request->isMethod('post')) {
             $data = $request->all();
+
             foreach ($data['sku'] as $key => $val) {
 
                 if(!empty($val)) {
+
+                    // Prevent duplicate Product SKU
+                    $attributesCountSKU = ProductsAttributes::where('sku', $val)->count();
+                    if($attributesCountSKU > 0) {
+                        return redirect('admin/add-attributes/'.$id)->with('flash_message_error', 'SKU: '.$val.' already exists for this product! Please add another SKU.');
+                    }
+
+                    // Prevent duplicate Product Size
+                    $attributesCountSize = ProductsAttributes::where(['product_id' => $id, 'size' => $data['size'][$key]])->count();
+                    if($attributesCountSize > 0) {
+                        return redirect('admin/add-attributes/'.$id)->with('flash_message_error', 'Size: '.$data['size'][$key].' already exists for this product! Please add another size.');
+                    }
+
                     $attribute = new ProductsAttributes;
                     $attribute->product_id = $id;
                     $attribute->sku = $val;
@@ -250,15 +364,144 @@ class ProductsController extends Controller
                     $attribute->price = $data['price'][$key];
                     $attribute->stock = $data['stock'][$key];
                     $attribute->save();
+
+                    return redirect('admin/add-attributes/'.$id)->with('flash_message_success', 'Product Attributes has been added successfully!');
                 }
             }
-            return redirect('admin/add-attributes/'.$id)->with('flash_message_success', 'Product Attributes has been added successfully!');
         }
         return view('admin.products.add_attributes')->with(compact('productDetails'));
     }
 
+    public function editAttributes(Request $request, $id = null) {
+        if($request->isMethod('post')) {
+            $data = $request->all();
+
+            foreach ($data['idAttr'] as $key => $attr) {
+                ProductsAttributes::where(['id' => $data['idAttr'][$key]])->update([
+                    'price' => $data['price'][$key],
+                    'stock' => $data['stock'][$key],
+                ]);
+            }
+
+            return redirect()->back()->with('flash_message_success', 'Attribute has been updated!');
+        }
+    }
+
+    /**
+     * @param null $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function deleteAttribute($id = null) {
         ProductsAttributes::where(['id' => $id])->delete();
         return redirect()->back()->with('flash_message_success', 'Attribute has been deleted successfully!');
+    }
+
+    /**
+     * @param null $url
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function products($url = null) {
+
+        $countCategory = Category::where(['url' => $url, 'status' => 1])->count();
+
+        if($countCategory == 0) {
+            abort(404);
+        }
+
+        $categories = Category::with('categories')->where(['parent_id' => 0])->get();
+
+        $categoryDetails = Category::where(['url' => $url])->first();
+
+        if($categoryDetails->parent_id == 0) {
+            // If url is main category url
+            $subCategories = Category::where(['parent_id' => $categoryDetails->id])->get();
+            foreach ($subCategories as $subCategory) {
+                $categoryIds[] = $subCategory->id;
+            }
+            $productsAll = Products::whereIn('category_id', $categoryIds)->where('status', 1)->get();
+        } else {
+            // If url is sub category url
+            $productsAll = Products::where(['category_id' => $categoryDetails->id])->get();
+        }
+
+        return view('products.listing')->with(compact('categories', 'categoryDetails', 'productsAll'));
+    }
+
+    /**
+     * @param null $id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function product($id = null) {
+
+        // Show 404 page if product is disabled
+        $productsCount = Products::where(['id' => $id, 'status' => 1])->count();
+        if($productsCount == 0) {
+            abort(404);
+        }
+
+        $productDetails = Products::with('attributes')->where('id', $id)->first();
+        $categories = Category::with('categories')->where(['parent_id' => 0])->get();
+
+        // Related Products
+        $relatedProducts = Products::where('id', '!=', $id)->where(['category_id' => $productDetails->category_id])->get();
+
+        // Get Product More Photos
+        $productMorePhotos = ProductFiles::where('product_id', $id)->get();
+
+        // Sum of stock
+        $totalStock = ProductsAttributes::where('product_id', $id)->sum('stock');
+
+        return view('products.detail')->with(compact('productDetails', 'categories', 'productMorePhotos', 'totalStock', 'relatedProducts'));
+    }
+
+    /**
+     * @param Request $request
+     */
+    public function getProductPrice(Request $request) {
+        $data = $request->all();
+        $productArr = explode('-', $data['productByAttribute']);
+        $productAttr = ProductsAttributes::where(['product_id' => $productArr[0], 'size' => $productArr[1]])->first();
+        echo $productAttr->price;
+        echo '#';
+        echo $productAttr->stock;
+    }
+
+    public function addToCart(Request $request) {
+        $data = $request->all();
+
+        if(empty($data['user_name'])) {
+            $data['user_name'] = '';
+        }
+
+        if(empty($data['user_email'])) {
+            $data['user_email'] = '';
+        }
+
+        if(empty($data['session_id'])) {
+            $data['session_id'] = '';
+        }
+
+        if(empty($data['list_price'])) {
+            $data['list_price'] = '';
+        }
+
+        if(empty($data['size'])) {
+            $sizeArray = $data['size'] = '';
+        } else {
+            $sizeArray = explode('-', $data['size']);
+        }
+
+        DB::table('cart')->insert([
+            'product_id' => $data['product_id'],
+            'product_name' => $data['product_name'],
+            'product_code' => $data['product_code'],
+            'size' => $sizeArray,
+            'price' => $data['price'],
+            'list_price' => $data['list_price'],
+            'quantity' => $data['quantity'],
+            'user_name' => $data['user_name'],
+            'user_email' => $data['user_email'],
+            'session_id' => $data['session_id'],
+        ]);
     }
 }

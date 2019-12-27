@@ -17,18 +17,16 @@
             <div class="col-md-12">
                 <div class="card">
                     @if(Session::has('flash_message_error'))
-                        @foreach(Session::get('flash_message_error') as $error)
-                            <div class="alert alert-danger" role="alert">
-                                {!! $error !!}
-                            </div>
-                        @endforeach
+                        <div class="alert alert-danger" role="alert">
+                            {!! session('flash_message_error') !!}
+                        </div>
                     @endif
                     @if(Session::has('flash_message_success'))
                         <div class="alert alert-success" role="alert">
                             {!! session('flash_message_success') !!}
                         </div>
                     @endif
-                    <form class="form-horizontal" enctype="multipart/form-data" action="{{ url('/admin/add-attributes/'.$productDetails->id) }}" method="post" name="add_attributes" id="add_attributes">
+                    <form class="form-horizontal" action="{{ url('/admin/add-attributes/'.$productDetails->id) }}" method="post" name="add_attributes" id="add_attributes">
                         {{ csrf_field() }}
                         <input type="hidden" name="product_id" value="{{ $productDetails->id }}">
                         <div class="card-body">
@@ -93,42 +91,53 @@
             <div class="col-md-12">
                 <div class="table-responsive">
                     <div id="example_wrapper"></div>
-                    <table id="productsTable" class="table table-striped table-bordered">
-                        <thead>
-                        <tr>
-                            <th>Attribute ID</th>
-                            <th>SKU</th>
-                            <th>Size</th>
-                            <th>Price</th>
-                            <th>Stock</th>
-                            <th>Actions</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        @foreach($productDetails['attributes'] as $attribute)
-                            <tr class="v-middle">
-                                <td>{{ $attribute->id }}</td>
-                                <td>{{ $attribute->sku }}</td>
-                                <td>{{ $attribute->size }}</td>
-                                <td>{{ $attribute->price }}</td>
-                                <td>{{ $attribute->stock }}</td>
-                                <td>
-                                    <a rel="{{ $attribute->id }}" rel1="delete-attribute" href="javascript:void(0)" id="deleteRecord" class="btn btn-danger">Remove</a>
-                                </td>
+                    <form action="{{ url('admin/edit-attributes/'.$productDetails->id) }}" method="POST">
+                        {{ csrf_field() }}
+                        <table id="productsTable" class="table table-striped table-bordered">
+                            <thead>
+                            <tr>
+                                <th>Attribute ID</th>
+                                <th>SKU</th>
+                                <th>Size</th>
+                                <th>Price</th>
+                                <th>Stock</th>
+                                <th>Actions</th>
                             </tr>
-                        @endforeach
-                        </tbody>
-                        <tfoot>
-                        <tr>
-                            <th>Attribute ID</th>
-                            <th>SKU</th>
-                            <th>Size</th>
-                            <th>Price</th>
-                            <th>Stock</th>
-                            <th>Actions</th>
-                        </tr>
-                        </tfoot>
-                    </table>
+                            </thead>
+                            <tbody>
+                            @foreach($productDetails['attributes'] as $attribute)
+                                <tr class="v-middle">
+                                    <td>
+                                        <input type="hidden" name="idAttr[]" value="{{ $attribute->id }}">
+                                        {{ $attribute->id }}
+                                    </td>
+                                    <td>{{ $attribute->sku }}</td>
+                                    <td>{{ $attribute->size }}</td>
+                                    <td>
+                                        <input type="text" name="price[]" value="{{ $attribute->price }}">
+                                    </td>
+                                    <td>
+                                        <input type="text" name="stock[]" value="{{ $attribute->stock }}">
+                                    </td>
+                                    <td>
+                                        <input type="submit" value="Update" class="btn btn-light btn-sm">
+                                        <a rel="{{ $attribute->id }}" rel1="delete-attribute" href="javascript:void(0)" id="deleteRecord" class="btn btn-danger btn-sm">Remove</a>
+                                    </td>
+                                </tr>
+                            @endforeach
+                            </tbody>
+                            <tfoot>
+                            <tr>
+                                <th>Attribute ID</th>
+                                <th>SKU</th>
+                                <th>Size</th>
+                                <th>Price</th>
+                                <th>Stock</th>
+                                <th>Actions</th>
+                            </tr>
+                            </tfoot>
+                        </table>
+                    </form>
                 </div>
             </div>
         </div>

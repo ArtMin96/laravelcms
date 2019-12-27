@@ -15,13 +15,22 @@ $(document).on('click', '#ajaxRemoveImage', function () {
     });
 });
 
-// $(document).on('click', '#deleteProduct', function () {
-//     if(confirm('Are you sure you want to delete this product?')) {
-//         return true;
-//     } else {
-//         return false;
-//     }
-// });
+// Delete More Photo
+$(document).on('click', '#ajaxRemoveMorePhoto', function () {
+    var _this = $(this);
+    var parent = _this.parent();
+    var id = _this.data('image-id');
+
+    $.ajax({
+        url: '/admin/delete-more-photos/'+id,
+        type: "GET",
+        data: {id: id},
+        success: function(result) {
+            parent.remove();
+            toastr.success(result.flash_message_success, 'Success');
+        }
+    });
+});
 
 $(document).on('click', '#deleteRecord', function (e) {
     var id = $(this).attr('rel');

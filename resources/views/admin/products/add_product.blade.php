@@ -82,6 +82,12 @@
                                             <textarea name="description" class="form-control" id="description" placeholder="Product Description"></textarea>
                                         </div>
                                     </div>
+                                    <div class="form-group row">
+                                        <label for="care" class="col-sm-3 text-right control-label col-form-label">Materials and Care</label>
+                                        <div class="col-sm-9">
+                                            <textarea name="care" class="form-control" id="care" placeholder="Materials and Care"></textarea>
+                                        </div>
+                                    </div>
                                 </div>
                                 <div class="tab-pane fade" id="pills-picture" role="tabpanel" aria-labelledby="pills-picture-tab">
                                     <div class="form-group row">
@@ -90,6 +96,15 @@
                                             <div class="custom-file">
                                                 <input type="file" class="custom-file-input" name="image" id="image">
                                                 <label class="custom-file-label" for="image">Choose file...</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-sm-3 text-right control-label col-form-label">More Photos</label>
+                                        <div class="col-sm-9">
+                                            <div class="custom-file">
+                                                <input type="file" class="custom-file-input" name="more_photo[]" id="more_photo" multiple>
+                                                <label class="custom-file-label" for="more_photo">Choose file...</label>
                                             </div>
                                         </div>
                                     </div>

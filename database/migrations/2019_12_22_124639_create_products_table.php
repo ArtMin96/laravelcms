@@ -20,8 +20,9 @@ class CreateProductsTable extends Migration
             $table->string('name');
             $table->string('code');
             $table->text('description')->nullable();
+            $table->text('care')->nullable();
             $table->float('price');
-            $table->float('list_price');
+            $table->float('list_price')->nullable();
             $table->string('image')->nullable();
             $table->tinyInteger('status')->default('1');
             $table->timestamps();

@@ -85,6 +85,12 @@
                                             <textarea name="description" class="form-control" id="description" placeholder="Product Description">{{ $productDetails->description }}</textarea>
                                         </div>
                                     </div>
+                                    <div class="form-group row">
+                                        <label for="care" class="col-sm-3 text-right control-label col-form-label">Materials and Care</label>
+                                        <div class="col-sm-9">
+                                            <textarea name="care" class="form-control" id="care" placeholder="Materials and Care">{{ $productDetails->description }}</textarea>
+                                        </div>
+                                    </div>
                                 </div>
                                 <div class="tab-pane fade" id="pills-picture" role="tabpanel" aria-labelledby="pills-picture-tab">
                                     <div class="form-group row">
@@ -97,13 +103,37 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="form-row mt-3">
+                                    <div class="row mt-3">
                                         @if(!empty($productDetails->image))
                                             <div class="img-wrap">
                                                 <span class="close" id="ajaxRemoveImage" data-image-id="{{ $productDetails->id }}">&times;</span>
                                                 <img src="{{ asset('/backend/images/products/medium/'.$productDetails->image) }}" width="300" alt="{{ $productDetails->name }}">
                                             </div>
                                         @endif
+                                    </div>
+
+                                    <div class="row mt-5 mb-3">
+                                        <label class="col-sm-3 text-right control-label col-form-label">More Photos</label>
+                                        <div class="col-sm-9">
+                                            <div class="custom-file">
+                                                <input type="file" class="custom-file-input" name="more_photo[]" id="more_photo" multiple>
+                                                <label class="custom-file-label" for="more_photo">Choose file...</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row px-2">
+                                        <div class="col-md-12">
+                                            <h4>More Photos</h4>
+                                        </div>
+
+                                        @foreach($morePhotos as $morePhoto)
+                                            <div class="col-md-2">
+                                                <div class="img-wrap">
+                                                    <span class="close" id="ajaxRemoveMorePhoto" data-image-id="{{ $morePhoto->id }}">&times;</span>
+                                                    <img src="{{ asset('/backend/images/products/medium/'.$morePhoto->more_photo) }}" width="100%" alt="{{ $morePhoto->id }}">
+                                                </div>
+                                            </div>
+                                        @endforeach
                                     </div>
                                 </div>
                                 <div class="tab-pane fade" id="pills-sale" role="tabpanel" aria-labelledby="pills-sale-tab">

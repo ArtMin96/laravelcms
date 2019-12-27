@@ -15,12 +15,28 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/', 'IndexController@index');
+
 Route::match(['get', 'post'], '/admin', 'AdminController@login');
 Route::get('/logout', 'AdminController@logout');
 
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+// Category/Listing Page
+Route::get('/products/{url}', 'ProductsController@products');
+
+// Product details page
+Route::get('/product/{url}', 'ProductsController@product');
+
+// Add to Cart Route
+Route::match(['get', 'post'], '/add-cart', 'ProductsController@addToCart');
+
+// Get Product Attribute price
+Route::get('/get-product-price', 'ProductsController@getProductPrice');
+
+// Admin
 Route::group(['middleware' => ['auth']], function () {
     Route::get('/admin/dashboard', 'AdminController@dashboard');
     Route::get('/admin/settings', 'AdminController@settings');
@@ -39,8 +55,10 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/admin/view-products', 'ProductsController@viewProducts');
     Route::get('/admin/delete-product/{id}', 'ProductsController@deleteProduct');
     Route::get('/admin/delete-product-image/{id}', 'ProductsController@deleteProductImage');
+    Route::get('/admin/delete-more-photos/{id}', 'ProductsController@deleteMorePhotos');
 
     // Product Attributes Routes (Admin)
     Route::match(['get', 'post'], '/admin/add-attributes/{id}', 'ProductsController@addAttributes');
+    Route::match(['get', 'post'], '/admin/edit-attributes/{id}', 'ProductsController@editAttributes');
     Route::get('/admin/delete-attribute/{id}', 'ProductsController@deleteAttribute');
 });
