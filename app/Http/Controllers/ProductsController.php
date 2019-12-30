@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Coupon;
 use App\ProductFiles;
 use App\ProductsAttributes;
 use Auth;
@@ -11,6 +12,7 @@ use Image;
 use Validator;
 use App\Category;
 use App\Products;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 
 /**
@@ -466,7 +468,14 @@ class ProductsController extends Controller
         echo $productAttr->stock;
     }
 
+    /**
+     * @param Request $request
+     */
     public function addToCart(Request $request) {
+
+        Session::forget('CouponAmount');
+        Session::forget('CouponCode');
+
         $data = $request->all();
 
         if(empty($data['user_name'])) {
@@ -491,17 +500,140 @@ class ProductsController extends Controller
             $sizeArray = explode('-', $data['size']);
         }
 
-        DB::table('cart')->insert([
+        $session_id = Session::get('session_id');
+
+        // Generate session id
+        if(empty($session_id)) {
+            $session_id = Str::random(40);
+            Session::put('session_id', $session_id);
+        }
+
+        $countProducts = DB::table('cart')->where([
             'product_id' => $data['product_id'],
-            'product_name' => $data['product_name'],
-            'product_code' => $data['product_code'],
-            'size' => $sizeArray,
-            'price' => $data['price'],
-            'list_price' => $data['list_price'],
-            'quantity' => $data['quantity'],
-            'user_name' => $data['user_name'],
-            'user_email' => $data['user_email'],
-            'session_id' => $data['session_id'],
-        ]);
+            'size' => $sizeArray[1],
+            'session_id' => $session_id,
+        ])->count();
+
+        if ($countProducts > 0) {
+            return redirect()->back()->with('flash_message_warning', $data['product_name'].' already exists in Cart.');
+        } else {
+
+            $getSKU = ProductsAttributes::select('sku')->where(['product_id' => $data['product_id'], 'size' => $sizeArray[1]])->first();
+
+            DB::table('cart')->insert([
+                'product_id' => $data['product_id'],
+                'product_name' => $data['product_name'],
+                'product_code' => $getSKU->sku,
+                'size' => $sizeArray[1],
+                'price' => $data['price'],
+                'list_price' => $data['list_price'],
+                'quantity' => $data['quantity'],
+                'user_name' => $data['user_name'],
+                'user_email' => $data['user_email'],
+                'session_id' => $session_id,
+            ]);
+
+            return redirect('cart')->with('flash_message_success', $data['product_name'].' has been added in Cart.');
+        }
+    }
+
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function cart() {
+        $session_id = Session::get('session_id');
+        $userCart = DB::table('cart')->where(['session_id' => $session_id])->get();
+
+        foreach ($userCart as $key => $product) {
+            $productDDetails = Products::where('id', $product->product_id)->first();
+            $userCart[$key]->image = $productDDetails->image;
+        }
+
+        return view('products.cart')->with(compact('userCart'));
+    }
+
+    /**
+     * @param null $id
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
+    public function deleteCartProduct($id = null) {
+        Session::forget('CouponAmount');
+        Session::forget('CouponCode');
+
+        DB::table('cart')->where('id', $id)->delete();
+        return redirect('cart')->with('flash_message_success', 'Product has been deleted from Cart.');
+    }
+
+    /**
+     * @param null $id
+     * @param null $quantity
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
+    public function updateCartQuantity($id = null, $quantity = null) {
+        Session::forget('CouponAmount');
+        Session::forget('CouponCode');
+
+        $getProductSKU  = DB::table('cart')->where('id', $id)->first();
+        $getProductStock = ProductsAttributes::where('sku', $getProductSKU->product_code)->first();
+        $updatedQuantity = $getProductSKU->quantity + $quantity;
+
+        if ($getProductStock->stock >= $updatedQuantity) {
+            DB::table('cart')->where('id', $id)->increment('quantity', $quantity);
+            return redirect('cart')->with('flash_message_success', 'Product quantity has been updated.');
+        } else {
+            return redirect('cart')->with('flash_message_error', 'Required product quantity is not available.');
+        }
+    }
+
+    public function applyCoupon(Request $request) {
+        $data = $request->all();
+        $couponCount = Coupon::where('coupon_code', $data['coupon_code'])->count();
+        if($couponCount == 0) {
+            return redirect()->back()->with('flash_message_error', $data['coupon_code'].' does not exist.');
+        } else {
+            // Perform other checks like Active/Inactive, Expiry etc.
+
+            Session::forget('CouponAmount');
+            Session::forget('CouponCode');
+
+            // Get Coupon details
+            $couponDetails = Coupon::where('coupon_code', $data['coupon_code'])->first();
+
+            // If coupon is Inactive
+            if($couponDetails->status == 0) {
+                return redirect()->back()->with('flash_message_error', $data['coupon_code'].' is not active.');
+            }
+
+            // If coupon is Expired
+            $expiryDate = $couponDetails->expiry_date;
+            $currentDate = date('Y-m-d H:i:s');
+
+            if ($expiryDate < $currentDate) {
+                return redirect()->back()->with('flash_message_error', $data['coupon_code'].' is expired.');
+            }
+
+            // Coupon is Valid for Discount
+
+            // Get cart total amount
+            $sessionId = Session::get('session_id');
+            $userCart = DB::table('cart')->where(['session_id' => $sessionId])->get();
+            $totalAmount = 0;
+            foreach ($userCart as $key => $item) {
+                $totalAmount = $totalAmount + ($item->price * $item->quantity);
+            }
+
+            // Check if amount is fixed or percentage
+            if($couponDetails->amount_type == 'Fixed') {
+                $couponAmount = $couponDetails->amount;
+            } else {
+                $couponAmount = $totalAmount * ($couponDetails->amount / 100);
+            }
+
+            // Add coupon code and amount in session
+            Session::put('CouponAmount', $couponAmount);
+            Session::put('CouponCode', $data['coupon_code']);
+
+            return redirect()->back()->with('flash_message_success', 'Coupon code '.$data['coupon_code'].' successfully applied. You are availing discount!');
+        }
     }
 }

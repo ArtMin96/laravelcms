@@ -31,4 +31,6 @@ let laravelCMS = {
         }
     }
 
-}
+};
+
+$('#message-toast').toast('show');

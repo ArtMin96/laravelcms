@@ -31,10 +31,16 @@ Route::get('/products/{url}', 'ProductsController@products');
 Route::get('/product/{url}', 'ProductsController@product');
 
 // Add to Cart Route
+Route::match(['get', 'post'], '/cart', 'ProductsController@cart');
 Route::match(['get', 'post'], '/add-cart', 'ProductsController@addToCart');
+Route::get('/cart/delete-product/{id}', 'ProductsController@deleteCartProduct');
+Route::get('/cart/update-quantity/{id}/{quantity}', 'ProductsController@updateCartQuantity');
 
 // Get Product Attribute price
 Route::get('/get-product-price', 'ProductsController@getProductPrice');
+
+// Apply Coupon
+Route::post('/cart/apply-coupon', 'ProductsController@applyCoupon');
 
 // Admin
 Route::group(['middleware' => ['auth']], function () {
@@ -61,4 +67,10 @@ Route::group(['middleware' => ['auth']], function () {
     Route::match(['get', 'post'], '/admin/add-attributes/{id}', 'ProductsController@addAttributes');
     Route::match(['get', 'post'], '/admin/edit-attributes/{id}', 'ProductsController@editAttributes');
     Route::get('/admin/delete-attribute/{id}', 'ProductsController@deleteAttribute');
+
+    // Coupon Routes (Admin)
+    Route::match(['get', 'post'], '/admin/add-coupon', 'CouponController@addCoupon');
+    Route::match(['get', 'post'], '/admin/edit-coupon/{id}', 'CouponController@editCoupon');
+    Route::get('/admin/view-coupons', 'CouponController@viewCoupons');
+    Route::get('/admin/delete-coupon/{id}', 'CouponController@deleteCoupon');
 });

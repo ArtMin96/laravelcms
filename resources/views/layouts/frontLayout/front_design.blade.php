@@ -26,6 +26,50 @@
 <body>
 @include('layouts.frontLayout.front_header')
 @yield('content')
+@if(Session::has('flash_message_success'))
+    <div class="toast-container toast-bottom-left">
+        <div class="toast"  id="message-toast" role="alert" aria-live="assertive" aria-atomic="true" data-delay="8000">
+            <div class="toast-header bg-success text-white">
+                <i class="czi-check-circle mr-2"></i>
+                <span class="font-weight-medium mr-auto">Success</span>
+                <button type="button" class="close text-white ml-2 mb-1" data-dismiss="toast" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="toast-body text-success">{!! session('flash_message_success') !!}</div>
+        </div>
+    </div>
+@endif
+
+@if(Session::has('flash_message_error'))
+    <div class="toast-container toast-bottom-left">
+        <div class="toast" id="message-toast" role="alert" aria-live="assertive" aria-atomic="true" data-delay="8000">
+            <div class="toast-header bg-danger text-white">
+                <i class="czi-check-circle mr-2"></i>
+                <span class="font-weight-medium mr-auto">Warning</span>
+                <button type="button" class="close text-white ml-2 mb-1" data-dismiss="toast" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="toast-body text-danger">{!! session('flash_message_error') !!}</div>
+        </div>
+    </div>
+@endif
+
+@if(Session::has('flash_message_warning'))
+    <div class="toast-container toast-bottom-left">
+        <div class="toast"  id="message-toast" role="alert" aria-live="assertive" aria-atomic="true" data-delay="8000">
+            <div class="toast-header bg-info text-white">
+                <i class="czi-check-circle mr-2"></i>
+                <span class="font-weight-medium mr-auto">Note</span>
+                <button type="button" class="close text-white ml-2 mb-1" data-dismiss="toast" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="toast-body text-info">{!! session('flash_message_warning') !!}</div>
+        </div>
+    </div>
+@endif
 @include('layouts.frontLayout.front_footer')
 <!-- Back To Top Button-->
 <a class="btn-scroll-top" href="#top" data-scroll><span class="btn-scroll-top-tooltip text-muted font-size-sm mr-2">Top</span><i class="btn-scroll-top-icon czi-arrow-up">   </i></a>

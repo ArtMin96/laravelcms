@@ -43,6 +43,23 @@
                         </li>
                     </ul>
                 </li>
+                <li class="sidebar-item">
+                    <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false">
+                        <i class="mdi mdi-receipt"></i><span class="hide-menu">Coupons </span>
+                    </a>
+                    <ul aria-expanded="false" class="collapse  first-level">
+                        <li class="sidebar-item">
+                            <a href="{{ url('/admin/view-coupons') }}" class="sidebar-link">
+                                <i class="mdi mdi-note-outline"></i><span class="hide-menu"> View Coupons </span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a href="{{ url('/admin/add-coupon') }}" class="sidebar-link">
+                                <i class="mdi mdi-note-outline"></i><span class="hide-menu"> Add Coupon </span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
             </ul>
         </nav>
         <!-- End Sidebar navigation -->

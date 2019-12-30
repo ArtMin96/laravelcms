@@ -1,5 +1,7 @@
 @extends('layouts.adminLayout.admin_design')
-
+@section('loadCss')
+    <link rel="stylesheet" href="{{ asset('backend/assets/libs/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css') }}">
+@endsection
 @section('content')
 
     <!-- ============================================================== -->
@@ -10,7 +12,7 @@
         <!-- Start Page Content -->
         <!-- ============================================================== -->
         <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-12">
                 <div class="card">
                     @if(Session::has('flash_message_error'))
                         @foreach(Session::get('flash_message_error') as $error)
@@ -24,63 +26,51 @@
                             {!! session('flash_message_success') !!}
                         </div>
                     @endif
-                    <form class="form-horizontal" enctype="multipart/form-data" action="{{ url('/admin/add-category') }}" method="post" name="add_category" id="add_category">
+                    <form class="form-horizontal" action="{{ url('/admin/edit-coupon/'.$couponDetails->id) }}" method="post" name="edit_coupon" id="edit_coupon">
                         {{ csrf_field() }}
                         <div class="card-body">
-                            <h4 class="card-title">Add Category</h4>
+                            <h4 class="card-title">Edit <span class="text-primary">{{ $couponDetails->coupon_code }}</span></h4>
 
                             <div class="form-group row">
                                 <label class="col-sm-3 text-right control-label col-form-label">Status</label>
                                 <div class="col-md-9">
                                     <div class="custom-control custom-checkbox">
-                                        <input type="checkbox" name="status" class="custom-control-input" id="status" value="1">
+                                        <input type="checkbox" name="status" class="custom-control-input" id="status" value="1" @if($couponDetails->status == 1) checked @endif>
                                         <label class="custom-control-label" for="status"></label>
                                     </div>
                                 </div>
                             </div>
+
                             <div class="form-group row">
-                                <label for="name" class="col-sm-3 text-right control-label col-form-label">Category Name</label>
+                                <label for="expiry_date" class="col-sm-3 text-right control-label col-form-label">Expiry</label>
                                 <div class="col-sm-9">
-                                    <input type="text" name="name" class="form-control" id="name" placeholder="Category Name">
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" id="expiry_date" name="expiry_date" value="{{ $couponDetails->expiry_date }}" placeholder="mm-dd-yyyy">
+                                        <div class="input-group-append">
+                                            <span class="input-group-text"><i class="fa fa-calendar"></i></span>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label for="name" class="col-sm-3 text-right control-label col-form-label">Category Level</label>
+                                <label for="coupon_code" class="col-sm-3 text-right control-label col-form-label">Coupon Code</label>
                                 <div class="col-sm-9">
-                                    <select name="parent_id" class="form-control" id="parent_id">
-                                        <option value="0">Main Category</option>
-                                        @foreach($levels as $level)
-                                            <option value="{{ $level->id }}">{{ $level->name }}</option>
-                                        @endforeach
+                                    <input type="text" name="coupon_code" class="form-control" id="coupon_code" value="{{ $couponDetails->coupon_code }}" placeholder="Coupon Code">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="amount_type" class="col-sm-3 text-right control-label col-form-label">Amount Type</label>
+                                <div class="col-sm-9">
+                                    <select name="amount_type" class="form-control" id="amount_type">
+                                        <option value="Percentage" @if($couponDetails->amount_type == 'Percentage') selected @endif>Percentage</option>
+                                        <option value="Fixed" @if($couponDetails->amount_type == 'Fixed') selected @endif>Fixed</option>
                                     </select>
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label for="url" class="col-sm-3 text-right control-label col-form-label">URL Code</label>
+                                <label for="amount" class="col-sm-3 text-right control-label col-form-label">Amount</label>
                                 <div class="col-sm-9">
-                                    <input type="text" name="url" class="form-control" id="url" placeholder="URL Code">
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label for="sort" class="col-sm-3 text-right control-label col-form-label">Sort</label>
-                                <div class="col-sm-9">
-                                    <input type="number" min="0" name="sort" class="form-control" value="500" id="sort" placeholder="Sort">
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label for="description" class="col-sm-3 text-right control-label col-form-label">Category Description</label>
-                                <div class="col-sm-9">
-                                    <textarea name="description" class="form-control" id="description" placeholder="Category Description"></textarea>
-                                </div>
-                            </div>
-
-                            <div class="form-group row">
-                                <label class="col-sm-3 text-right control-label col-form-label">Category Picture</label>
-                                <div class="col-sm-9">
-                                    <div class="custom-file">
-                                        <input type="file" class="custom-file-input" name="image" id="image">
-                                        <label class="custom-file-label" for="image">Choose file...</label>
-                                    </div>
+                                    <input type="number" min="0" name="amount" class="form-control" id="amount" value="{{ $couponDetails->amount }}" placeholder="Amount">
                                 </div>
                             </div>
                         </div>
@@ -103,5 +93,12 @@
 
 @endsection
 @section('loadScript')
-    <script src="{{ asset('backend/js/category.js') }}"></script>
+    <script src="{{ asset('backend/assets/libs/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js') }}"></script>
+    <script>
+        $('#expiry_date').datepicker({
+            autoclose: true,
+            todayHighlight: true,
+            format: 'yyyy-mm-dd'
+        });
+    </script>
 @endsection
