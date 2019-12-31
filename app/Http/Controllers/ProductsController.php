@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Country;
 use App\Coupon;
 use App\ProductFiles;
 use App\ProductsAttributes;
+use App\User;
 use Auth;
 use Illuminate\Support\Facades\DB;
 use Session;
@@ -635,5 +637,12 @@ class ProductsController extends Controller
 
             return redirect()->back()->with('flash_message_success', 'Coupon code '.$data['coupon_code'].' successfully applied. You are availing discount!');
         }
+    }
+
+    public function checkout() {
+        $userId = Auth::user()->id;
+        $userDetails = User::find($userId);
+        $countries = Country::get();
+        return view('products.checkout')->with(compact('userDetails', 'countries'));
     }
 }

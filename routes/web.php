@@ -42,6 +42,27 @@ Route::get('/get-product-price', 'ProductsController@getProductPrice');
 // Apply Coupon
 Route::post('/cart/apply-coupon', 'ProductsController@applyCoupon');
 
+// Authentication
+Route::get('/user-auth', 'UsersController@memberLoginRegister');
+Route::post('/account-register', 'UsersController@register');
+Route::post('/account-login', 'UsersController@login');
+Route::get('/account-logout', 'UsersController@logout');
+
+// All routes after login
+Route::group(['middleware' => ['frontlogin']], function () {
+    // User Account page
+    Route::match(['get', 'post'], 'account', 'UsersController@account');
+
+    // Check user password
+    Route::post('/check-user-password', 'UsersController@checkUserPassword');
+
+    // Update user password
+    Route::post('/update-user-password', 'UsersController@updatePassword');
+
+    // Checkout page
+    Route::match(['get', 'post'], '/checkout', 'ProductsController@checkout');
+});
+
 // Admin
 Route::group(['middleware' => ['auth']], function () {
     Route::get('/admin/dashboard', 'AdminController@dashboard');

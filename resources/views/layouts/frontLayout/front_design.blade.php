@@ -5,6 +5,7 @@
     <title>LaravelCMS | eCommerce
     </title>
     <!-- SEO Meta Tags-->
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="description" content="LaravelCMS | eCommerce">
     <meta name="keywords" content="bootstrap, shop, e-commerce, market, modern, responsive,  business, mobile, bootstrap 4, html5, css3, jquery, js, gallery, slider, touch, creative, clean">
     <meta name="author" content="Arthur Minasyan">
@@ -54,6 +55,23 @@
             <div class="toast-body text-danger">{!! session('flash_message_error') !!}</div>
         </div>
     </div>
+@endif
+
+@if(Session::has('flash_message_validation_error'))
+    @foreach(Session::get('flash_message_validation_error') as $error)
+        <div class="toast-container toast-bottom-left">
+            <div class="toast" id="message-toast" role="alert" aria-live="assertive" aria-atomic="true" data-delay="8000">
+                <div class="toast-header bg-danger text-white">
+                    <i class="czi-check-circle mr-2"></i>
+                    <span class="font-weight-medium mr-auto">Warning</span>
+                    <button type="button" class="close text-white ml-2 mb-1" data-dismiss="toast" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="toast-body text-danger">{!! $error !!}</div>
+            </div>
+        </div>
+    @endforeach
 @endif
 
 @if(Session::has('flash_message_warning'))

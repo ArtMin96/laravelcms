@@ -73,9 +73,9 @@
                             <button class="btn-wishlist btn-sm" type="button" data-toggle="tooltip" data-placement="left" title="Add to wishlist">
                                 <i class="czi-heart"></i>
                             </button>
-                            <a class="card-img-top d-block overflow-hidden" href="shop-single-v1.html"><img src="{{ asset('backend/images/products/small/'.$product->image) }}" alt="Product"></a>
-                            <div class="card-body py-2"><a class="product-meta d-block font-size-xs pb-1" href="#">Sneakers &amp; Keds</a>
-                                <h3 class="product-title font-size-sm"><a href="shop-single-v1.html">{{ $product->name }}</a></h3>
+                            <a class="card-img-top d-block overflow-hidden" href="{{ url('product/'.$product->id) }}"><img src="{{ asset('backend/images/products/small/'.$product->image) }}" alt="Product"></a>
+                            <div class="card-body py-2"><a class="product-meta d-block font-size-xs pb-1" href="#">{{ $product->category_name }}</a>
+                                <h3 class="product-title font-size-sm"><a href="{{ url('product/'.$product->id) }}">{{ $product->name }}</a></h3>
                                 <div class="d-flex justify-content-between">
                                     <div class="product-price"><span class="text-accent">${{ $product->price }}</span></div>
                                     <div class="star-rating"><i class="sr-star czi-star-filled active"></i><i class="sr-star czi-star-filled active"></i><i class="sr-star czi-star-filled active"></i><i class="sr-star czi-star-filled active"></i><i class="sr-star czi-star"></i>

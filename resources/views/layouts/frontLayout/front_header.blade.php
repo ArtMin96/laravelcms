@@ -2,75 +2,6 @@
 use App\Http\Controllers\Controller;
 $mainCategories = Controller::mainCategories();
 ?>
-<div class="modal fade" id="signin-modal" tabindex="-1" role="dialog">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <ul class="nav nav-tabs card-header-tabs" role="tablist">
-                    <li class="nav-item"><a class="nav-link active" href="#signin-tab" data-toggle="tab" role="tab" aria-selected="true"><i class="czi-unlocked mr-2 mt-n1"></i>Sign in</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#signup-tab" data-toggle="tab" role="tab" aria-selected="false"><i class="czi-user mr-2 mt-n1"></i>Sign up</a></li>
-                </ul>
-                <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            </div>
-            <div class="modal-body tab-content py-4">
-                <form class="needs-validation tab-pane fade show active" autocomplete="off" novalidate id="signin-tab">
-                    <div class="form-group">
-                        <label for="si-email">Email address</label>
-                        <input class="form-control" type="email" id="si-email" placeholder="johndoe@example.com" required>
-                        <div class="invalid-feedback">Please provide a valid email address.</div>
-                    </div>
-                    <div class="form-group">
-                        <label for="si-password">Password</label>
-                        <div class="password-toggle">
-                            <input class="form-control" type="password" id="si-password" required>
-                            <label class="password-toggle-btn">
-                                <input class="custom-control-input" type="checkbox"><i class="czi-eye password-toggle-indicator"></i><span class="sr-only">Show password</span>
-                            </label>
-                        </div>
-                    </div>
-                    <div class="form-group d-flex flex-wrap justify-content-between">
-                        <div class="custom-control custom-checkbox mb-2">
-                            <input class="custom-control-input" type="checkbox" id="si-remember">
-                            <label class="custom-control-label" for="si-remember">Remember me</label>
-                        </div><a class="font-size-sm" href="#">Forgot password?</a>
-                    </div>
-                    <button class="btn btn-primary btn-block btn-shadow" type="submit">Sign in</button>
-                </form>
-                <form class="needs-validation tab-pane fade" autocomplete="off" novalidate id="signup-tab">
-                    <div class="form-group">
-                        <label for="su-name">Full name</label>
-                        <input class="form-control" type="text" id="su-name" placeholder="John Doe" required>
-                        <div class="invalid-feedback">Please fill in your name.</div>
-                    </div>
-                    <div class="form-group">
-                        <label for="su-email">Email address</label>
-                        <input class="form-control" type="email" id="su-email" placeholder="johndoe@example.com" required>
-                        <div class="invalid-feedback">Please provide a valid email address.</div>
-                    </div>
-                    <div class="form-group">
-                        <label for="su-password">Password</label>
-                        <div class="password-toggle">
-                            <input class="form-control" type="password" id="su-password" required>
-                            <label class="password-toggle-btn">
-                                <input class="custom-control-input" type="checkbox"><i class="czi-eye password-toggle-indicator"></i><span class="sr-only">Show password</span>
-                            </label>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="su-password-confirm">Confirm password</label>
-                        <div class="password-toggle">
-                            <input class="form-control" type="password" id="su-password-confirm" required>
-                            <label class="password-toggle-btn">
-                                <input class="custom-control-input" type="checkbox"><i class="czi-eye password-toggle-indicator"></i><span class="sr-only">Show password</span>
-                            </label>
-                        </div>
-                    </div>
-                    <button class="btn btn-primary btn-block btn-shadow" type="submit">Sign up</button>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
 <!-- Quick View Modal-->
 <div class="modal-quick-view modal fade" id="quick-view" tabindex="-1">
     <div class="modal-dialog modal-xl">
@@ -220,11 +151,65 @@ $mainCategories = Controller::mainCategories();
                     <div class="input-group-append-overlay"><span class="input-group-text"><i class="czi-search"></i></span></div>
                 </div>
                 <div class="navbar-toolbar d-flex flex-shrink-0 align-items-center">
-                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse"><span class="navbar-toggler-icon"></span></button><a class="navbar-tool navbar-stuck-toggler" href="#"><span class="navbar-tool-tooltip">Expand menu</span>
-                        <div class="navbar-tool-icon-box"><i class="navbar-tool-icon czi-menu"></i></div></a><a class="navbar-tool d-none d-lg-flex" href="account-wishlist.html"><span class="navbar-tool-tooltip">Wishlist</span>
-                        <div class="navbar-tool-icon-box"><i class="navbar-tool-icon czi-heart"></i></div></a><a class="navbar-tool ml-1 ml-lg-0 mr-n1 mr-lg-2" href="#signin-modal" data-toggle="modal">
-                        <div class="navbar-tool-icon-box"><i class="navbar-tool-icon czi-user"></i></div>
-                        <div class="navbar-tool-text ml-n3"><small>Hello, Sign in</small>My Account</div></a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse"><span class="navbar-toggler-icon"></span></button>
+                    <a class="navbar-tool navbar-stuck-toggler" href="#"><span class="navbar-tool-tooltip">Expand menu</span>
+                        <div class="navbar-tool-icon-box"><i class="navbar-tool-icon czi-menu"></i></div>
+                    </a>
+                    <a class="navbar-tool d-none d-lg-flex" href="account-wishlist.html"><span class="navbar-tool-tooltip">Wishlist</span>
+                        <div class="navbar-tool-icon-box"><i class="navbar-tool-icon czi-heart"></i></div>
+                    </a>
+                    @if(empty(Auth::check()))
+                        <div class="dropdown">
+                            <a class="navbar-tool ml-1 ml-lg-0 mr-n1 mr-lg-2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <div class="navbar-tool-icon-box"><i class="navbar-tool-icon czi-user"></i></div>
+                                <div class="navbar-tool-text ml-n3"><small>Hello, Sign in</small>My Account</div>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right" style="min-width: 14rem;">
+                                <h6 class="dropdown-header pt-2">Welcome to Cartzilla!</h6>
+                                <div class="dropdown-item d-flex justify-content-between">
+                                    <a href="{{ url('/user-auth') }}" class="btn btn-sm btn-primary w-100 mr-2">Join</a>
+                                    <a href="{{ url('/user-auth') }}" class="btn btn-sm btn-secondary w-100">Sign in</a>
+                                </div>
+                            </div>
+                        </div>
+                    @else
+                        <div class="dropdown">
+                            <a class="navbar-tool ml-1 ml-lg-0 mr-n1 mr-lg-2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <div class="navbar-tool-icon-box"><i class="navbar-tool-icon czi-user"></i></div>
+                                <div class="navbar-tool-text ml-n3">My Account</div>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right" style="min-width: 14rem;">
+                                <h6 class="dropdown-header">Account</h6>
+                                <a class="dropdown-item d-flex align-items-center" href="dashboard-settings.html">
+                                    <i class="czi-settings opacity-60 mr-2"></i>Settings
+                                </a>
+                                <a class="dropdown-item d-flex align-items-center" href="dashboard-purchases.html">
+                                    <i class="czi-basket opacity-60 mr-2"></i>Purchases
+                                </a>
+                                <a class="dropdown-item d-flex align-items-center" href="dashboard-favorites.html">
+                                    <i class="czi-heart opacity-60 mr-2"></i>Favorites<span class="font-size-xs text-muted ml-auto">4</span>
+                                </a>
+                                <div class="dropdown-divider"></div>
+                                <h6 class="dropdown-header">Seller Dashboard</h6>
+                                <a class="dropdown-item d-flex align-items-center" href="dashboard-sales.html">
+                                    <i class="czi-dollar opacity-60 mr-2"></i>Sales<span class="font-size-xs text-muted ml-auto">$1,375.00</span>
+                                </a>
+                                <a class="dropdown-item d-flex align-items-center" href="dashboard-products.html">
+                                    <i class="czi-package opacity-60 mr-2"></i>Products<span class="font-size-xs text-muted ml-auto">5</span>
+                                </a>
+                                <a class="dropdown-item d-flex align-items-center" href="dashboard-add-new-product.html">
+                                    <i class="czi-cloud-upload opacity-60 mr-2"></i>Add New Product
+                                </a>
+                                <a class="dropdown-item d-flex align-items-center" href="dashboard-payouts.html">
+                                    <i class="czi-currency-exchange opacity-60 mr-2"></i>Payouts
+                                </a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item d-flex align-items-center" href="{{ url('/account-logout') }}">
+                                    <i class="czi-sign-out opacity-60 mr-2"></i>Sign Out
+                                </a>
+                            </div>
+                        </div>
+                    @endif
                     <div class="navbar-tool dropdown ml-3"><a class="navbar-tool-icon-box bg-secondary dropdown-toggle" href="shop-cart.html"><span class="navbar-tool-label">4</span><i class="navbar-tool-icon czi-cart"></i></a><a class="navbar-tool-text" href="shop-cart.html"><small>My Cart</small>$265.00</a>
                         <!-- Cart dropdown-->
                         <div class="dropdown-menu dropdown-menu-right" style="width: 20rem;">

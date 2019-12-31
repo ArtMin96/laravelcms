@@ -29,11 +29,9 @@
                                 <th>Name</th>
                                 <th>Sort</th>
                                 <th>Url</th>
-                                <th>Description</th>
                                 <th>Image</th>
                                 <th>Status</th>
                                 <th>Created</th>
-                                <th>Updated</th>
                                 <th></th>
                             </tr>
                         </thead>
@@ -45,19 +43,22 @@
                                     <td>{{ $category->name }}</td>
                                     <td>{{ $category->sort }}</td>
                                     <td>{{ $category->url }}</td>
-                                    <td>{{ $category->description }}</td>
                                     <td>
                                         @if(!empty($category->image))
                                             <img src="{{ asset('backend/images/categories/small/'.$category->image) }}" width="100" alt="{{ $category->name }}">
                                         @endif
                                     </td>
-                                    <td>{{ $category->status }}</td>
-                                    <td>{{ date('D, d F Y - h:i:s', strtotime($category->created_at)) }}</td>
-                                    <td>{{ date('D, d F Y - h:i:s', strtotime($category->updated_at)) }}</td>
                                     <td>
-                                        <a href="{{ url('/admin/edit-category/'.$category->id) }}" class="btn btn-light">Preview</a>
-                                        <a href="{{ url('/admin/edit-category/'.$category->id) }}" class="btn btn-primary">Edit</a>
-                                        <a href="{{ url('/admin/delete-category/'.$category->id) }}" id="deleteCategory" class="btn btn-danger">Remove</a>
+                                        @if($category->status == 1)
+                                            <span class="text-success">Active</span>
+                                            @else
+                                            <span class="text-danger">Inactive</span>
+                                        @endif
+                                    </td>
+                                    <td>{{ date('D, d F Y - h:i:s', strtotime($category->created_at)) }}</td>
+                                    <td>
+                                        <a href="{{ url('/admin/edit-category/'.$category->id) }}" class="btn btn-outline-info btn-sm" data-toggle="tooltip" data-placement="top" data-original-title="Edit">Edit</a>
+                                        <a href="{{ url('/admin/delete-category/'.$category->id) }}" id="deleteCategory" class="btn btn-outline-danger btn-sm" data-toggle="tooltip" data-placement="top" data-original-title="Delete"><i class="mdi mdi-close"></i></a>
                                     </td>
                                 </tr>
                             @endforeach
@@ -69,11 +70,9 @@
                                 <th>Name</th>
                                 <th>Sort</th>
                                 <th>Url</th>
-                                <th>Description</th>
                                 <th>Image</th>
                                 <th>Status</th>
                                 <th>Created</th>
-                                <th>Updated</th>
                                 <th></th>
                             </tr>
                         </tfoot>
