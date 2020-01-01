@@ -45,132 +45,133 @@
 
             <!-- Billing address -->
             <h2 class="h6 pt-1 pb-3 mb-3 border-bottom">Billing address</h2>
-            <div class="row">
-                <div class="col-sm-6">
-                    <div class="form-group">
-                        <label for="billing-name">Billing Name</label>
-                        <input class="form-control" type="text" id="billing-name" name="billing_name" value="{{ $userDetails->name }}">
+            <form action="{{ url('/checkout') }}" method="POST">
+                {{ csrf_field() }}
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label for="billing-name">Billing Name</label>
+                            <input class="form-control" type="text" id="billing-name" name="billing_name" @if(!empty($userDetails->name)) value="{{ $userDetails->name }}" @endif>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label for="billing-address">Billing Address</label>
+                            <input class="form-control" type="text" id="billing-address" name="billing_address" @if(!empty($userDetails->address)) value="{{ $userDetails->address }}" @endif>
+                        </div>
                     </div>
                 </div>
-                <div class="col-sm-6">
-                    <div class="form-group">
-                        <label for="billing-address">Billing Address</label>
-                        <input class="form-control" type="text" id="billing-address" name="billing_address" value="{{ $userDetails->address }}">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label for="billing-phone">Billing Phone</label>
+                            <input class="form-control" type="text" id="billing-phone" name="billing_phone" @if(!empty($userDetails->phone)) value="{{ $userDetails->phone }}" @endif>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label for="billing-pincode">Billing Pincode</label>
+                            <input class="form-control" type="text" id="billing-pincode" name="billing_pincode" @if(!empty($userDetails->pincode)) value="{{ $userDetails->pincode }}" @endif>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="row">
-                <div class="col-sm-6">
-                    <div class="form-group">
-                        <label for="billing-phone">Billing Phone</label>
-                        <input class="form-control" type="text" id="billing-phone" name="billing_phone" value="{{ $userDetails->phone }}">
+                <div class="row">
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label for="billing-city">Billing City</label>
+                            <input class="form-control" type="text" id="billing-city" name="billing_city" @if(!empty($userDetails->city)) value="{{ $userDetails->city }}" @endif>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label for="billing-state">Billing State</label>
+                            <input class="form-control" type="text" id="billing-state" name="billing_state" @if(!empty($userDetails->state)) value="{{ $userDetails->state }}" @endif>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label for="billing-country">Billing Country</label>
+                            <select id="billing-country" name="billing_country" class="form-control">
+                                @foreach($countries as $country)
+                                    <option value="{{ $country->name }}" @if(!empty($userDetails->country) && $country->name == $userDetails->country) selected @endif>{{ $country->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
                     </div>
                 </div>
-                <div class="col-sm-6">
-                    <div class="form-group">
-                        <label for="billing-pincode">Billing Pincode</label>
-                        <input class="form-control" type="text" id="billing-pincode" name="billing_pincode" value="{{ $userDetails->pincode }}">
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-sm-4">
-                    <div class="form-group">
-                        <label for="billing-city">Billing City</label>
-                        <input class="form-control" type="text" id="billing-city" name="billing_city" value="{{ $userDetails->city }}">
-                    </div>
-                </div>
-                <div class="col-sm-4">
-                    <div class="form-group">
-                        <label for="billing-state">Billing State</label>
-                        <input class="form-control" type="text" id="billing-state" name="billing_state" value="{{ $userDetails->state }}">
-                    </div>
-                </div>
-                <div class="col-sm-4">
-                    <div class="form-group">
-                        <label for="billing-country">Billing Country</label>
-                        <select id="billing-country" name="billing_country" class="form-control">
-                            @foreach($countries as $country)
-                                <option value="{{ $country->name }}" @if($country->name == $userDetails->country) selected @endif>{{ $country->name }}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                </div>
-            </div>
 
-            <h6 class="mb-3 py-3 border-bottom">Billing address</h6>
-            <div class="custom-control custom-checkbox">
-                <input class="custom-control-input" type="checkbox" checked id="same-address" value="{{ $userDetails->name }}">
-                <label class="custom-control-label" for="same-address">Same as shipping address</label>
-            </div>
+                <h6 class="mb-3 py-3 border-bottom">Billing address</h6>
+                <div class="custom-control custom-checkbox">
+                    <input class="custom-control-input" type="checkbox" id="same-address" onclick="laravelCMS.sameAsShipping(this)" value="{{ $userDetails->name }}">
+                    <label class="custom-control-label" for="same-address">Same as shipping address</label>
+                </div>
 
-            <!-- Navigation (desktop)-->
-            <div class="d-none d-lg-flex pt-4 mt-3">
-                <div class="w-50 pr-3"><a class="btn btn-secondary btn-block" href="shop-cart.html"><i class="czi-arrow-left mt-sm-0 mr-1"></i><span class="d-none d-sm-inline">Back to Cart</span><span class="d-inline d-sm-none">Back</span></a></div>
-                <div class="w-50 pl-2"><a class="btn btn-primary btn-block" href="checkout-shipping.html"><span class="d-none d-sm-inline">Proceed to Shipping</span><span class="d-inline d-sm-none">Next</span><i class="czi-arrow-right mt-sm-0 ml-1"></i></a></div>
-            </div>
+                <!-- Shipping address-->
+                <h2 class="h6 pt-1 pb-3 mb-3 mt-5 border-bottom">Shipping address</h2>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label for="shipping-name">Shipping Name</label>
+                            <input class="form-control" type="text" name="shipping_name" @if(!empty($shippingDetails->name)) value="{{ $shippingDetails->name }}" @endif id="shipping-name">
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label for="shipping-address">Shipping Address</label>
+                            <input class="form-control" type="text" name="shipping_address" @if(!empty($shippingDetails->address)) value="{{ $shippingDetails->address }}" @endif id="shipping-address">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label for="shipping-pincode">Shipping Pincode</label>
+                            <input class="form-control" type="text" name="shipping_pincode" @if(!empty($shippingDetails->pincode)) value="{{ $shippingDetails->pincode }}" @endif id="shipping-pincode">
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label for="shipping-phone">Shipping Phone</label>
+                            <input class="form-control" type="text" name="shipping_phone" @if(!empty($shippingDetails->phone)) value="{{ $shippingDetails->phone }}" @endif id="shipping-phone">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label for="shipping-city">Shipping City</label>
+                            <input class="form-control" type="text" name="shipping_city" @if(!empty($shippingDetails->city)) value="{{ $shippingDetails->city }}" @endif id="shipping-city">
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label for="shipping-state">Shipping State</label>
+                            <input class="form-control" type="text" name="shipping_state" @if(!empty($shippingDetails->state)) value="{{ $shippingDetails->state }}" @endif id="shipping-state">
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label for="shipping-country">Shipping Country</label>
+                            <select class="form-control" name="shipping_country" id="shipping-country">
+                                <option value="">Select Country</option>
+                                @foreach($countries as $country)
+                                    <option value="{{ $country->name }}" @if(!empty($shippingDetails->country) && $country->name == $shippingDetails->country) selected @endif>{{ $country->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <!-- Navigation (desktop)-->
+                <div class="d-none d-lg-flex pt-4 mt-3">
+                    <div class="w-50 pr-3"><a class="btn btn-secondary btn-block" href="shop-cart.html"><i class="czi-arrow-left mt-sm-0 mr-1"></i><span class="d-none d-sm-inline">Back to Cart</span><span class="d-inline d-sm-none">Back</span></a></div>
+                    <div class="w-50 pl-2">
+                        <button class="btn btn-primary btn-block" type="submit">
+                            <span class="d-none d-sm-inline">Proceed to Shipping</span><span class="d-inline d-sm-none">Next</span><i class="czi-arrow-right mt-sm-0 ml-1"></i>
+                        </button>
+                    </div>
+                </div>
+            </form>
 
-            <!-- Shipping address-->
-            <h2 class="h6 pt-1 pb-3 mb-3 mt-5 border-bottom">Shipping address</h2>
-            <div class="row">
-                <div class="col-sm-6">
-                    <div class="form-group">
-                        <label for="shipping-name">Shipping Name</label>
-                        <input class="form-control" type="text" id="shipping-name">
-                    </div>
-                </div>
-                <div class="col-sm-6">
-                    <div class="form-group">
-                        <label for="shipping-address">Shipping Address</label>
-                        <input class="form-control" type="text" id="shipping-address">
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-sm-6">
-                    <div class="form-group">
-                        <label for="shipping-pincode">Shipping Pincode</label>
-                        <input class="form-control" type="text" id="shipping-pincode">
-                    </div>
-                </div>
-                <div class="col-sm-6">
-                    <div class="form-group">
-                        <label for="shipping-phone">Shipping Phone</label>
-                        <input class="form-control" type="text" id="shipping-phone">
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-sm-4">
-                    <div class="form-group">
-                        <label for="shipping-city">Shipping City</label>
-                        <input class="form-control" type="email" id="shipping-city">
-                    </div>
-                </div>
-                <div class="col-sm-4">
-                    <div class="form-group">
-                        <label for="shipping-state">Shipping State</label>
-                        <input class="form-control" type="text" id="shipping-state">
-                    </div>
-                </div>
-                <div class="col-sm-4">
-                    <div class="form-group">
-                        <label for="shipping-country">Shipping Country</label>
-                        <input class="form-control" type="text" id="shipping-country">
-                    </div>
-                </div>
-            </div>
-
-            <h6 class="mb-3 py-3 border-bottom">Billing address</h6>
-            <div class="custom-control custom-checkbox">
-                <input class="custom-control-input" type="checkbox" checked id="same-address">
-                <label class="custom-control-label" for="same-address">Same as shipping address</label>
-            </div>
-            <!-- Navigation (desktop)-->
-            <div class="d-none d-lg-flex pt-4 mt-3">
-                <div class="w-50 pr-3"><a class="btn btn-secondary btn-block" href="shop-cart.html"><i class="czi-arrow-left mt-sm-0 mr-1"></i><span class="d-none d-sm-inline">Back to Cart</span><span class="d-inline d-sm-none">Back</span></a></div>
-                <div class="w-50 pl-2"><a class="btn btn-primary btn-block" href="checkout-shipping.html"><span class="d-none d-sm-inline">Proceed to Shipping</span><span class="d-inline d-sm-none">Next</span><i class="czi-arrow-right mt-sm-0 ml-1"></i></a></div>
-            </div>
         </section>
         <!-- Sidebar-->
         <aside class="col-lg-4 pt-4 pt-lg-0">

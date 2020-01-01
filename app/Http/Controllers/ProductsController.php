@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Country;
 use App\Coupon;
+use App\DeliveryAddress;
 use App\ProductFiles;
 use App\ProductsAttributes;
 use App\User;
@@ -639,10 +640,111 @@ class ProductsController extends Controller
         }
     }
 
-    public function checkout() {
+    /**
+     * @param Request $request
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\View\View
+     */
+    public function checkout(Request $request) {
         $userId = Auth::user()->id;
+        $userEmail = Auth::user()->email;
         $userDetails = User::find($userId);
         $countries = Country::get();
-        return view('products.checkout')->with(compact('userDetails', 'countries'));
+
+        // Check if Shipping address exists
+        $shippingCount = DeliveryAddress::where('user_id', $userId)->count();
+        $shippingDetails = [];
+        if ($shippingCount > 0) {
+            $shippingDetails = DeliveryAddress::where('user_id', $userId)->first();
+        }
+
+        // Update cart table with user email
+        $sessionId = Session::get('session_id');
+        DB::table('cart')->where(['session_id' => $sessionId])->update(['user_email' => $userEmail]);
+
+        if ($request->isMethod('post')) {
+            $data = $request->all();
+
+            $validate = Validator::make($data, [
+                'billing_name' => 'required|min:2',
+                'billing_address' => 'required|min:5',
+                'billing_city'  => 'required|string',
+                'billing_state'  => 'required|string',
+                'billing_country'  => 'required|string',
+                'billing_pincode'  => 'required|string',
+                'billing_phone'  => 'required|numeric|min:5',
+                'shipping_name'  => 'required|min:2',
+                'shipping_address'  => 'required|min:5',
+                'shipping_city'  => 'required|string',
+                'shipping_state'  => 'required|string',
+                'shipping_country'  => 'required|string',
+                'shipping_pincode'  => 'required|string',
+                'shipping_phone'  => 'required|numeric|min:5',
+            ]);
+
+            if($validate->fails()) {
+                return redirect()->back()->with('flash_message_validation_error', $validate->errors()->all());
+            }
+
+            // Update user details
+            User::where('id', $userId)->update([
+                'name' => $data['billing_name'],
+                'address' => $data['billing_address'],
+                'city' => $data['billing_city'],
+                'state' => $data['billing_state'],
+                'country' => $data['billing_country'],
+                'pincode' => $data['billing_pincode'],
+                'phone' => $data['billing_phone'],
+            ]);
+
+            if($shippingCount > 0) {
+                // Update Shipping address
+                DeliveryAddress::where('user_id', $userId)->update([
+                    'name' => $data['shipping_name'],
+                    'address' => $data['shipping_address'],
+                    'city' => $data['shipping_city'],
+                    'state' => $data['shipping_state'],
+                    'country' => $data['shipping_country'],
+                    'pincode' => $data['shipping_pincode'],
+                    'phone' => $data['shipping_phone'],
+                ]);
+
+                $message = 'Shipping details has been updated.';
+            } else {
+                // Add new Shipping address
+                $shipping = new DeliveryAddress;
+                $shipping->user_id = $userId;
+                $shipping->user_email = $userEmail;
+                $shipping->name = $data['shipping_name'];
+                $shipping->address = $data['shipping_address'];
+                $shipping->city = $data['shipping_city'];
+                $shipping->state = $data['shipping_state'];
+                $shipping->country = $data['shipping_country'];
+                $shipping->pincode = $data['shipping_pincode'];
+                $shipping->phone = $data['shipping_phone'];
+                $shipping->save();
+
+                $message = 'Shipping details has been added.';
+            }
+
+            return redirect()->action('ProductsController@orderReview')->with('flash_message_success', $message);
+        }
+        return view('products.checkout')->with(compact('userDetails', 'countries', 'shippingDetails'));
+    }
+
+    public function orderReview() {
+        $userId = Auth::user()->id;
+        $userEmail = Auth::user()->email;
+        $userDetails = User::where('id', $userId)->first();
+        $shippingDetails = DeliveryAddress::where('user_id', $userId)->first();
+        $userDetails = json_decode(json_encode($userDetails));
+
+        $userCart = DB::table('cart')->where(['user_email' => $userEmail])->get();
+
+        foreach ($userCart as $key => $product) {
+            $productDDetails = Products::where('id', $product->product_id)->first();
+            $userCart[$key]->image = $productDDetails->image;
+        }
+
+        return view('products.order_review')->with(compact('userDetails', 'shippingDetails', 'userCart'));
     }
 }

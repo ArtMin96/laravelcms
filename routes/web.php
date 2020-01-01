@@ -20,9 +20,9 @@ Route::get('/', 'IndexController@index');
 Route::match(['get', 'post'], '/admin', 'AdminController@login');
 Route::get('/logout', 'AdminController@logout');
 
-Auth::routes();
+Auth::routes(['verify' => true]);
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/home', 'HomeController@index')->name('home')->middleware('verified');
 
 // Category/Listing Page
 Route::get('/products/{url}', 'ProductsController@products');
@@ -61,6 +61,9 @@ Route::group(['middleware' => ['frontlogin']], function () {
 
     // Checkout page
     Route::match(['get', 'post'], '/checkout', 'ProductsController@checkout');
+
+    // Order review
+    Route::match(['get', 'post'], '/order-review', 'ProductsController@orderReview');
 });
 
 // Admin

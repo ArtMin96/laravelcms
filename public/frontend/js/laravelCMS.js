@@ -50,6 +50,27 @@ let laravelCMS = {
                 }
             }
         });
+    },
+
+    sameAsShipping: function (element) {
+
+        if (element.checked) {
+            $('#shipping-name').val($('#billing-name').val());
+            $('#shipping-address').val($('#billing-address').val());
+            $('#shipping-phone').val($('#billing-phone').val());
+            $('#shipping-pincode').val($('#billing-pincode').val());
+            $('#shipping-city').val($('#billing-city').val());
+            $('#shipping-state').val($('#billing-state').val());
+            $('#shipping-country').val($('#billing-country').val());
+        } else {
+            $('#shipping-name').val('');
+            $('#shipping-address').val('');
+            $('#shipping-phone').val('');
+            $('#shipping-pincode').val('');
+            $('#shipping-city').val('');
+            $('#shipping-state').val('');
+            $('#shipping-country').val('');
+        }
     }
 
 };

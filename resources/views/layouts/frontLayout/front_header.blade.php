@@ -210,7 +210,11 @@ $mainCategories = Controller::mainCategories();
                             </div>
                         </div>
                     @endif
-                    <div class="navbar-tool dropdown ml-3"><a class="navbar-tool-icon-box bg-secondary dropdown-toggle" href="shop-cart.html"><span class="navbar-tool-label">4</span><i class="navbar-tool-icon czi-cart"></i></a><a class="navbar-tool-text" href="shop-cart.html"><small>My Cart</small>$265.00</a>
+                    <div class="navbar-tool dropdown ml-3">
+                        <a class="navbar-tool-icon-box bg-secondary dropdown-toggle" href="{{ url('/cart') }}">
+                            <span class="navbar-tool-label">4</span><i class="navbar-tool-icon czi-cart"></i>
+                        </a>
+                        <a class="navbar-tool-text" href="{{ url('/cart') }}"><small>My Cart</small>$265.00</a>
                         <!-- Cart dropdown-->
                         <div class="dropdown-menu dropdown-menu-right" style="width: 20rem;">
                             <div class="widget widget-cart px-3 pt-2 pb-3">
@@ -254,7 +258,8 @@ $mainCategories = Controller::mainCategories();
                                 </div>
                                 <div class="d-flex flex-wrap justify-content-between align-items-center py-3">
                                     <div class="font-size-sm mr-2 py-2"><span class="text-muted">Subtotal:</span><span class="text-accent font-size-base ml-1">$265.<small>00</small></span></div><a class="btn btn-outline-secondary btn-sm" href="shop-cart.html">Expand cart<i class="czi-arrow-right ml-1 mr-n1"></i></a>
-                                </div><a class="btn btn-primary btn-sm btn-block" href="checkout-details.html"><i class="czi-card mr-2 font-size-base align-middle"></i>Checkout</a>
+                                </div>
+                                <a class="btn btn-primary btn-sm btn-block" href="{{ url('/checkout') }}"><i class="czi-card mr-2 font-size-base align-middle"></i>Checkout</a>
                             </div>
                         </div>
                     </div>
