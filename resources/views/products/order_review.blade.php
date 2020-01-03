@@ -101,11 +101,64 @@
                 <?php $totalAmount = $totalAmount + $cart->price * $cart->quantity; ?>
                 @endforeach
 
-                <!-- Navigation (desktop)-->
-                <div class="d-none d-lg-flex pt-4">
-                    <div class="w-50 pr-3"><a class="btn btn-secondary btn-block" href="checkout-details.html"><i class="czi-arrow-left mt-sm-0 mr-1"></i><span class="d-none d-sm-inline">Back to Adresses</span><span class="d-inline d-sm-none">Back</span></a></div>
-                    <div class="w-50 pl-2"><a class="btn btn-primary btn-block" href="checkout-payment.html"><span class="d-none d-sm-inline">Proceed to Payment</span><span class="d-inline d-sm-none">Next</span><i class="czi-arrow-right mt-sm-0 ml-1"></i></a></div>
-                </div>
+                <?php $grandTotal = $totalAmount - Session::get('CouponAmount') ?>
+
+                <h2 class="h6 pb-3 mb-2">Choose payment method</h2>
+                <form action="{{ url('/place-order') }}" method="POST" name="paymentForm" id="paymentForm">
+                    {{ csrf_field() }}
+                    <input type="hidden" name="grand_total" value="{{ $grandTotal }}">
+                    <div class="row my-4 pb-3">
+                        <div class="col-lg-6">
+                            <div class="card">
+                                <div class="card-body">
+                                    <ul class="list-unstyled mb-0">
+                                        <li class="media">
+                                            <div class="custom-control custom-radio mb-0">
+                                                <input class="custom-control-input" type="radio" id="PayPal" value="PayPal" name="payment_method">
+                                                <label class="custom-control-label" for="PayPal"></label>
+                                            </div>
+                                            <div class="media-body pl-3">
+                                            <span class="font-size-md font-weight-bold">
+                                                <img src="{{ asset('frontend/images/payments/9_bdg_secured_by_pp_2line.png') }}" alt="Paypal" width="62" class="v-middle mr-4">
+                                                PayPal</span>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="card">
+                                <div class="card-body">
+                                    <ul class="list-unstyled mb-0">
+                                        <li class="media">
+                                            <div class="custom-control custom-radio mb-0">
+                                                <input class="custom-control-input" type="radio" id="COD" value="COD" name="payment_method">
+                                                <label class="custom-control-label" for="COD"></label>
+                                            </div>
+                                            <div class="media-body pl-3">
+                                            <span class="font-size-md font-weight-bold">
+                                                <img src="{{ asset('frontend/images/payments/9_bdg_secured_by_pp_2line.png') }}" alt="COD" width="62" class="v-middle mr-4">
+                                                COD</span>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <!-- Navigation (desktop)-->
+                    <div class="d-none d-lg-flex pt-4">
+                        <div class="w-50 pr-3"><a class="btn btn-secondary btn-block" href="checkout-details.html"><i class="czi-arrow-left mt-sm-0 mr-1"></i><span class="d-none d-sm-inline">Back to Adresses</span><span class="d-inline d-sm-none">Back</span></a></div>
+                        <div class="w-50 pl-2">
+                            <button class="btn btn-primary btn-block" type="submit" onclick="laravelCMS.selectPaymentMethod()">
+                                <span class="d-none d-sm-inline">Place Order</span><span class="d-inline d-sm-none">Next</span><i class="czi-arrow-right mt-sm-0 ml-1"></i>
+                            </button>
+                        </div>
+                    </div>
+                </form>
             </section>
             <!-- Sidebar-->
             <aside class="col-lg-4 pt-4 pt-lg-0">

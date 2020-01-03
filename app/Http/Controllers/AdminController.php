@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Order;
+use App\Products;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -29,6 +31,9 @@ class AdminController extends Controller
         return view('admin.admin_login');
     }
 
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function dashboard() {
         return view('admin.dashboard');
     }
@@ -59,6 +64,10 @@ class AdminController extends Controller
         }
     }
 
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function updatePassword(Request $request) {
         if($request->isMethod('get')) {
             $data = $request->all();
@@ -92,5 +101,33 @@ class AdminController extends Controller
     public function logout() {
         Session::flush();
         return redirect('/admin')->with('flash_message_success', 'Logged out successfully');
+    }
+
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function orders() {
+        $orders = Order::with('orders')->orderByDesc('id')->get();
+
+        return view('admin.orders.view_orders')->with(compact('orders'));
+    }
+
+    /**
+     * @param $orderId
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function viewOrderDetails($orderId) {
+        $orderDetails = Order::with('orders')->where('id', $orderId)->first();
+        $userId = $orderDetails->user_id;
+        $userDetails = User::where('id', $userId)->first();
+        return view('admin.orders.order_details')->with(compact('orderDetails', 'userDetails'));
+    }
+
+    public function updateOrderStatus(Request $request) {
+        if ($request->isMethod('post')) {
+            $data = $request->all();
+            Order::where('id', $data['order_id'])->update(['order_status' => $data['order_status']]);
+            return redirect()->back()->with('flash_message_success', 'Order status has been updated.');
+        }
     }
 }

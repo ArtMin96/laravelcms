@@ -64,6 +64,20 @@ Route::group(['middleware' => ['frontlogin']], function () {
 
     // Order review
     Route::match(['get', 'post'], '/order-review', 'ProductsController@orderReview');
+
+    // Place Order
+    Route::match(['get', 'post'], '/place-order', 'ProductsController@placeOrder');
+
+    // Thanks page
+    Route::get('/thanks', 'ProductsController@thanks');
+
+    // User orders page
+    Route::get('/orders', 'ProductsController@userOrders');
+
+    // Payment | Paypal
+    Route::get('/payment/paypal', 'ProductsController@paypal');
+    Route::get('/payment/paypal/thanks', 'ProductsController@thanksPaypal');
+    Route::get('/payment/paypal/cancel', 'ProductsController@cancelPaypal');
 });
 
 // Admin
@@ -97,4 +111,9 @@ Route::group(['middleware' => ['auth']], function () {
     Route::match(['get', 'post'], '/admin/edit-coupon/{id}', 'CouponController@editCoupon');
     Route::get('/admin/view-coupons', 'CouponController@viewCoupons');
     Route::get('/admin/delete-coupon/{id}', 'CouponController@deleteCoupon');
+
+    // Orders Routes (Admin)
+    Route::get('/admin/view-orders', 'AdminController@orders');
+    Route::get('/admin/view-orders/{id}', 'AdminController@viewOrderDetails');
+    Route::post('/admin/update-order-status', 'AdminController@updateOrderStatus');
 });

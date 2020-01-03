@@ -3,6 +3,7 @@ let laravelCMS = {
     postMethod: "POST",
     getMethod: "GET",
 
+    // Get product attributes
     getProductAttribute: function (attributeValue) {
         let currentAttributeValue = attributeValue.value;
 
@@ -31,6 +32,7 @@ let laravelCMS = {
         }
     },
 
+    // Check current password
     checkPassword: function () {
         var currentPassword = $('#current_password').val();
         $.ajax({
@@ -52,6 +54,7 @@ let laravelCMS = {
         });
     },
 
+    // Set billing info in shipping form
     sameAsShipping: function (element) {
 
         if (element.checked) {
@@ -70,6 +73,12 @@ let laravelCMS = {
             $('#shipping-city').val('');
             $('#shipping-state').val('');
             $('#shipping-country').val('');
+        }
+    },
+
+    selectPaymentMethod: function () {
+        if ($('#PayPal').is(':checked') || $('#COD').is(':checked')) {
+            console.log('checked');
         }
     }
 

@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Country;
 use App\Coupon;
 use App\DeliveryAddress;
+use App\Order;
+use App\OrdersProduct;
 use App\ProductFiles;
 use App\ProductsAttributes;
 use App\User;
@@ -481,12 +483,16 @@ class ProductsController extends Controller
 
         $data = $request->all();
 
-        if(empty($data['user_name'])) {
+        if(empty(Auth::user()->name)) {
             $data['user_name'] = '';
+        } else {
+            $data['user_name'] = Auth::user()->name;
         }
 
-        if(empty($data['user_email'])) {
+        if(empty(Auth::user()->email)) {
             $data['user_email'] = '';
+        } else {
+            $data['user_email'] = Auth::user()->email;
         }
 
         if(empty($data['session_id'])) {
@@ -523,6 +529,18 @@ class ProductsController extends Controller
 
             $getSKU = ProductsAttributes::select('sku')->where(['product_id' => $data['product_id'], 'size' => $sizeArray[1]])->first();
 
+            if(empty(Auth::user()->name)) {
+                $data['user_name'] = '';
+            } else {
+                $data['user_name'] = Auth::user()->name;
+            }
+
+            if(empty(Auth::user()->email)) {
+                $data['user_email'] = '';
+            } else {
+                $data['user_email'] = Auth::user()->email;
+            }
+
             DB::table('cart')->insert([
                 'product_id' => $data['product_id'],
                 'product_name' => $data['product_name'],
@@ -544,8 +562,14 @@ class ProductsController extends Controller
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function cart() {
-        $session_id = Session::get('session_id');
-        $userCart = DB::table('cart')->where(['session_id' => $session_id])->get();
+
+        if(Auth::check()) {
+            $userEmail = Auth::user()->email;
+            $userCart = DB::table('cart')->where(['user_email' => $userEmail])->get();
+        } else {
+            $session_id = Session::get('session_id');
+            $userCart = DB::table('cart')->where(['session_id' => $session_id])->get();
+        }
 
         foreach ($userCart as $key => $product) {
             $productDDetails = Products::where('id', $product->product_id)->first();
@@ -588,6 +612,10 @@ class ProductsController extends Controller
         }
     }
 
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function applyCoupon(Request $request) {
         $data = $request->all();
         $couponCount = Coupon::where('coupon_code', $data['coupon_code'])->count();
@@ -619,7 +647,15 @@ class ProductsController extends Controller
 
             // Get cart total amount
             $sessionId = Session::get('session_id');
-            $userCart = DB::table('cart')->where(['session_id' => $sessionId])->get();
+
+            if(Auth::check()) {
+                $userEmail = Auth::user()->email;
+                $userCart = DB::table('cart')->where(['user_email' => $userEmail])->get();
+            } else {
+                $session_id = Session::get('session_id');
+                $userCart = DB::table('cart')->where(['session_id' => $session_id])->get();
+            }
+
             $totalAmount = 0;
             foreach ($userCart as $key => $item) {
                 $totalAmount = $totalAmount + ($item->price * $item->quantity);
@@ -731,6 +767,9 @@ class ProductsController extends Controller
         return view('products.checkout')->with(compact('userDetails', 'countries', 'shippingDetails'));
     }
 
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function orderReview() {
         $userId = Auth::user()->id;
         $userEmail = Auth::user()->email;
@@ -746,5 +785,117 @@ class ProductsController extends Controller
         }
 
         return view('products.order_review')->with(compact('userDetails', 'shippingDetails', 'userCart'));
+    }
+
+    /**
+     * @param Request $request
+     */
+    public function placeOrder(Request $request) {
+        if($request->isMethod('post')) {
+            $data = $request->all();
+            $userId = Auth::user()->id;
+            $userEmail = Auth::user()->email;
+
+            // Get shipping address of user
+            $shippingDetails = DeliveryAddress::where(['user_email' => $userEmail])->first();
+
+            if (empty(Session::get('CouponCode'))) {
+                $couponCode = '';
+            } else {
+                $couponCode = Session::get('CouponCode');
+            }
+
+            if (empty(Session::get('CouponAmount'))) {
+                $couponAmount = '';
+            } else {
+                $couponAmount = Session::get('CouponAmount');
+            }
+
+            $order = new Order;
+            $order->user_id = $userId;
+            $order->user_email = $userEmail;
+            $order->name = $shippingDetails->name;
+            $order->address = $shippingDetails->address;
+            $order->phone = $shippingDetails->phone;
+            $order->pincode = $shippingDetails->pincode;
+            $order->city = $shippingDetails->city;
+            $order->state = $shippingDetails->state;
+            $order->country = $shippingDetails->country;
+
+            $order->coupon_code = $couponCode;
+            $order->coupon_amount = $couponAmount;
+            $order->order_status = 'New';
+            $order->payment_method = $data['payment_method'];
+            $order->grand_total = $data['grand_total'];
+            $order->save();
+
+            $orderId = DB::getPdo()->lastInsertId();
+
+            $cartProducts = DB::table('cart')->where(['user_email' => $userEmail])->get();
+
+            foreach ($cartProducts as $cartProduct) {
+                $orderProduct = new OrdersProduct;
+                $orderProduct->order_id = $orderId;
+                $orderProduct->user_id = $userId;
+                $orderProduct->product_id = $cartProduct->product_id;
+                $orderProduct->product_code = $cartProduct->product_code;
+                $orderProduct->product_name = $cartProduct->product_name;
+                $orderProduct->product_size = $cartProduct->size;
+                $orderProduct->product_price = $cartProduct->price;
+                $orderProduct->product_qty = $cartProduct->quantity;
+                $orderProduct->save();
+            }
+
+            Session::put('order_id', $orderId);
+            Session::put('grand_total', $data['grand_total']);
+
+            if ($data['payment_method'] == 'PayPal') {
+                return redirect('/paypal');
+            }
+        }
+    }
+
+    /**
+     * @param Request $request
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function thanks(Request $request) {
+        $userEmail = Auth::user()->email;
+        DB::table('cart')->where('user_email', $userEmail)->delete();
+        return view('orders.thanks');
+    }
+
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function userOrders() {
+        $userId = Auth::user()->id;
+        $orders = Order::with('orders')->where('user_id', $userId)->get();
+        return view('orders.user_orders')->with(compact('orders'));
+    }
+
+    /**
+     * Payment
+     */
+
+    /**
+     * @param Request $request
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function paypal(Request $request) {
+        $userEmail = Auth::user()->email;
+        DB::table('cart')->where('user_email', $userEmail)->delete();
+        return view('payment.paypal.paypal');
+    }
+
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function thanksPaypal() {
+        return view('payment.paypal.thanks');
+    }
+
+    public function cancelPaypal() {
+        return view('payment.paypal.cancel');
     }
 }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Country;
 use App\User;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Validator;
 use Session;
@@ -30,6 +31,12 @@ class UsersController extends Controller
 
             if (Auth::attempt(['email' => $data['email'], 'password' => $data['password']])) {
                 Session::put('frontSession', $data['email']);
+
+                if (!empty(Session::get('session_id'))) {
+                    $sessionId = Session::get('session_id');
+                    DB::table('cart')->where('session_id', $sessionId)->update(['user_email' => $data['email']]);
+                }
+
                 return redirect('/cart')->with('flash_message_success', 'You are successfully logged in');
             } else {
                 return redirect()->back()->with('flash_message_error', 'Invalid Email or Password.');
@@ -66,6 +73,12 @@ class UsersController extends Controller
 
                     if (Auth::attempt(['email' => $data['email'], 'password' => $data['password']])) {
                         Session::put('frontSession', $data['email']);
+
+                        if (!empty(Session::get('session_id'))) {
+                            $sessionId = Session::get('session_id');
+                            DB::table('cart')->where('session_id', $sessionId)->update(['user_email' => $data['email']]);
+                        }
+
                         return redirect('/cart')->with('flash_message_success', 'You are successfully logged in');
                     }
                 }
@@ -126,6 +139,7 @@ class UsersController extends Controller
     public function logout() {
         Auth::logout();
         Session::forget('frontSession');
+        Session::forget('session_id');
         return redirect('/')->with('flash_message_success', 'You have been successfully logged out!');
     }
 

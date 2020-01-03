@@ -2,21 +2,26 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="80223fc0-0331-46f4-9832-bc087dad17d2" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/app/DeliveryAddress.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/products/order_review.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/laravelcms.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/laravelcms.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Order.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/OrdersProduct.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/database/migrations/2020_01_01_180313_create_orders_table.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/database/migrations/2020_01_01_180957_create_orders_products_table.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/frontend/images/payments/9_bdg_secured_by_pp_2line.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/admin/orders/order_details.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/admin/orders/view_orders.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/orders/thanks.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/orders/user_orders.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/payment/paypal/cancel.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/payment/paypal/paypal.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/payment/paypal/thanks.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/AdminController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/AdminController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/ProductsController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/ProductsController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/User.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/database.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/database.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2019_12_30_155031_create_states_table.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2019_12_30_173558_create_cities_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2019_12_31_161657_create_delivery_addresses_table.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/UsersController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/UsersController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/frontend/js/laravelCMS.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/frontend/js/laravelCMS.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/layouts/adminLayout/admin_sidebar.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layouts/adminLayout/admin_sidebar.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/layouts/frontLayout/front_header.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layouts/frontLayout/front_header.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/products/checkout.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/products/checkout.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/products/order_review.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/products/order_review.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -163,6 +168,8 @@
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\OSPanel\domains\laravelcms\resources\views\payment\paypal" />
+      <recent name="D:\OSPanel\domains\laravelcms\resources\views\orders" />
       <recent name="D:\OSPanel\domains\laravelcms\resources\views" />
     </key>
   </component>
@@ -214,7 +221,12 @@
       <workItem from="1577656639822" duration="5677000" />
       <workItem from="1577703190889" duration="27812000" />
       <workItem from="1577794763370" duration="17274000" />
-      <workItem from="1577832551279" duration="4620000" />
+      <workItem from="1577832551279" duration="12435000" />
+      <workItem from="1577905721678" duration="8957000" />
+      <workItem from="1577921009232" duration="1137000" />
+      <workItem from="1577969021348" duration="9890000" />
+      <workItem from="1577983544034" duration="14872000" />
+      <workItem from="1578006994843" duration="1699000" />
     </task>
     <servers />
   </component>
